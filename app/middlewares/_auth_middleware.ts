@@ -1,10 +1,12 @@
 import { getCookie } from "hono/cookie";
 import { createMiddleware } from "hono/factory";
+import { BYPASS_PATHS } from "../domain/constants/bypass_paths";
 
 export const authMiddleware = createMiddleware(async (c, next) => {
     const sessionId = getCookie(c, 'curate_session')
+    const { pathname } = new URL(c.req.url)
 
-    if(c.req.path === '/auth/login') {
+    if(BYPASS_PATHS.some(p => pathname.startsWith(p))) {
         await next()
         return
     }
