@@ -1,7 +1,7 @@
 import { createMiddleware } from "hono/factory"
 import { SqliteUsersRepositoryImpl } from "../infrastructure/repositories/sqlite_users_repository_impl"
 import { SetupUsecase } from "../usecases/setup_usecase"
-import { CheckInitializeUsecase } from './../usecases/check_initialize_usecase'
+import { CheckInitializeUsecase } from '../usecases/check_initialize_usecase'
 
 export type DiEnv = {
     Variables: {

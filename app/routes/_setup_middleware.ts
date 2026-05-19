@@ -1,5 +1,5 @@
 import { createMiddleware } from "hono/factory";
-import { DiEnv } from "./_di._middleware";
+import { DiEnv } from "./_di_middleware";
 
 export const setupMiddleware = createMiddleware<DiEnv>(async (c, next) => {
     const { pathname } = new URL(c.req.url);
