@@ -7,7 +7,7 @@ export class SqliteUsersRepositoryImpl implements IDbUsersRepository {
     async add(user: UserEntity): Promise<Result<void>> {
         const query = db.prepare(`
             INSERT INTO users (id, username, password_hash, role)
-            VALUE (?, ?, ?, ?)
+            VALUES (?, ?, ?, ?)
         `);
         
         try {
