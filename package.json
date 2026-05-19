@@ -2,7 +2,7 @@
   "name": "basic",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "bunx --bun vite",
     "build": "vite build --mode client && vite build"
   },
   "private": true,
