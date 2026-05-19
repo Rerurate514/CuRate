@@ -9,19 +9,38 @@ export class UserEntity {
         public readonly createdAt: Date
     ) {}
 
-    static create(params: {
-        username: string,
-        passwordHash: string,
-        role: UserRoles
+    static async create(params: {
+        username: string;
+        passwordRaw: string;
+        role: UserRoles;
     }) {
         const now = new Date();
+        const passwordHash = await Bun.password.hash(params.passwordRaw, {
+            algorithm: "argon2id"
+        });
 
         return new UserEntity(
             crypto.randomUUID(),
             params.username,
-            params.passwordHash,
+            passwordHash,
             params.role,
             now
-        )
+        );
+    }
+
+    static reconstruct(params: {
+        id: string;
+        name: string;
+        passwordHash: string;
+        role: UserRoles;
+        createdAt: string | Date;
+    }) {
+        return new UserEntity(
+            params.id,
+            params.name,
+            params.passwordHash,
+            params.role,
+            typeof params.createdAt === "string" ? new Date(params.createdAt) : params.createdAt
+        );
     }
 }
