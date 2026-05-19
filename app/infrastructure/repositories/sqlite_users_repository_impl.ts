@@ -11,7 +11,7 @@ export class SqliteUsersRepositoryImpl implements IDbUsersRepository {
         `);
         
         try {
-            query.run(user.id, user.name, user.passwordHash, user.role);
+            await query.run(user.id, user.name, user.passwordHash, user.role);
             return new Success();
         } catch(e: any) {
             return new Failure(e);
