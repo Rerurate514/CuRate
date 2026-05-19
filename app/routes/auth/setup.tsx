@@ -1,6 +1,7 @@
 import { zValidator } from "@hono/zod-validator";
 import { createRoute } from "honox/factory";
 import z from "zod";
+import { diMiddleware } from "../../middlewares/_di_middleware";
 
 const setupSchema = z.object({
     username: z.string().min(1, 'Please Enter User name'),
@@ -11,7 +12,7 @@ export const GET = createRoute((c) => {
     return c.render(
         <div class="flex flex-col justify-center min-h-screen max-w-md mx-auto px-6">
             <h1 class="text-2xl font-bold text-gray-800 mb-2">CuRate - Setup</h1>
-            <form method="post" action="/auth/login">
+            <form method="post" action="/auth/setup">
                 <div class="my-4">
                     <label class="block mb-1 text-sm font-medium text-gray-700">Username</label>
                     <input type="text" name="username" class="w-full border border-blue-500 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-400" />
@@ -29,8 +30,9 @@ export const GET = createRoute((c) => {
 })
 
 export const POST = createRoute(
+    diMiddleware,
     zValidator('form', setupSchema, (result, c) => {
-if (!result.success) {
+        if (!result.success) {
             return c.render(
                 <div class="flex flex-col justify-center min-h-screen max-w-md mx-auto px-6 text-center">
 
@@ -59,6 +61,13 @@ if (!result.success) {
             password
         } = c.req.valid('form');
 
-        //await setupUsecase.execute({ username, password });
+        const usecase = c.get('setupUsecase');
+        const result = await usecase.execute(username, password);
+
+        if(result.success) {
+            return c.redirect('/auth/login');
+        } else {
+            return c.redirect('/auth/setup');
+        }
     }
 );
