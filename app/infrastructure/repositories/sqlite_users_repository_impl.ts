@@ -29,4 +29,16 @@ export class SqliteUsersRepositoryImpl implements IDbUsersRepository {
     async exists(id: string): Promise<Result<boolean>> {
         throw new Error("Method not implemented.");
     }
+
+    async existsAnyUser(): Promise<Result<boolean>> {
+        const query = db.prepare(`
+            SELECT EXISTS (SELECT 1 FROM users LIMIT 1) AS "exists"
+        `);
+        try {
+            const result = query.get() as { exists: number }
+            return new Success(result.exists === 1);
+        } catch(e: any) {
+            return new Failure(e);
+        }
+    }
 }
