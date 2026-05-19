@@ -6,4 +6,5 @@ export interface IDbUsersRepository {
     findById(id: string): Promise<Result<UserEntity>>;
     findByName(usename: string): Promise<Result<UserEntity>>;
     exists(id: string): Promise<Result<boolean>>;
+    existsAnyUser(): Promise<Result<boolean>>;
 }
