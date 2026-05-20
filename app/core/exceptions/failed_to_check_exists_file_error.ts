@@ -1,1 +1,1 @@
-export class FailedToChechExistsFileError extends Error { }
+export class FailedToCheckExistsFileError extends Error { }
