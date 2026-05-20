@@ -1,6 +1,7 @@
 import { Database } from 'bun:sqlite'
+import { dbFileName } from '../../domain/constants/file_names'
 
-const db = new Database("curate.db")
+const db = new Database(dbFileName)
 
 db.run(`
     CREATE TABLE IF NOT EXISTS users (
