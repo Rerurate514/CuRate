@@ -11,6 +11,12 @@ db.run(`
         role TEXT NOT NULL CHECK(role IN ('admin', 'user', 'guest')),
         created_at TEXT DEFAULT (datetime('now', 'utc'))
     );
+
+    CREATE TABLE IF NOT EXISTS sessions (
+        id TEXT PRIMARY KEY,
+        user_id TEXT UNIQUE NOT NULL,
+        expires_at INTEGER NOT NULL
+    );
 `)
 
 export { db }
