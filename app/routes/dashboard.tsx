@@ -1,13 +1,14 @@
 import { createRoute } from "honox/factory"
-import Counter from "../islands/counter"
+import { NavCard } from "../presentation/common/nav_button"
 
 export const GET = createRoute((c) => {
-    const name = c.req.query('name') ?? 'Hono'
     return c.render(
-        <div class="py-8 text-center">
-            <title>{name}</title>
-            <h1 class="text-3xl font-bold">Hello, {name}!</h1>
-            <Counter />
+        <div class="p-8">
+            <p class="text-sm text-gray-400 mb-1">CuRate</p>
+            <h1 class="text-2xl font-medium text-gray-800 mb-6">Dashboard</h1>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                <NavCard href="/drive" label="Drive" description="Browse and manage your files" icon="ti-folder" />
+            </div>
         </div>
     )
 })
