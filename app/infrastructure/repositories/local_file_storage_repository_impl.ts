@@ -7,11 +7,9 @@ import { FailedToDeleteFileError } from "../../core/exceptions/failed_to_delete_
 import { FailedToCheckExistsFileError } from "../../core/exceptions/failed_to_check_exists_file_error";
 
 export class LocalFileStorageRepository implements IFileStorageRepository {
-    private readonly basePath: string;
-
-    constructor(basePath: string) {
-        this.basePath = basePath;
-    }
+    constructor(
+        private readonly basePath: string
+    ) { }
 
     async save(filePath: string, data: Buffer | string): Promise<Result<void>> {
         try {
