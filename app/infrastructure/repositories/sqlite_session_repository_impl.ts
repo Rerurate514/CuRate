@@ -38,7 +38,7 @@ export class SqliteSessionRepositoryImpl implements IDbSessionRepository {
                 expiresAt: number
             } | null;
 
-            if (record === null) {
+            if (!record) {
                 return new Failure(new SessionNotFoundError());
             }
 
