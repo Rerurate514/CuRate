@@ -1,5 +1,6 @@
 import { readdir } from "node:fs/promises";
 import { join } from "node:path";
+import { stat } from "node:fs/promises";
 import { Failure, Result, Success } from "../../core/utils/result";
 import { IDriveControllRepository } from "../../domain/repositories/i_drive_controll_repository";
 import { DirectoryDataEntity } from '../../domain/entities/directory_data.entity';
@@ -18,22 +19,22 @@ export class LocalDriveControllRepositoryImpl implements IDriveControllRepositor
 
             for(const entry of entries) {
                 const path = join(targetPath, entry.name);
+                const stats = await stat(targetPath);
+
                 if(entry.isDirectory()) {
-                    const dir = DirectoryDataEntity.create({
+                    const dir = DirectoryDataEntity.createFromFs({
                         name: entry.name,
                         path: path,
-                        parentDirectoryId: null
+                        stats: stats
                     });
                     list.directories.push(dir);
                 } else {
-                    const fileInfo = Bun.file(path);
-                    const file = FileDataEntity.create({
+                    const file = FileDataEntity.createFromFs({
                         name: entry.name,
                         path: path,
-                        size: fileInfo.size,
-                        mimeType: fileInfo.type,
-                        parentDirectoryId: null
-                    });
+                        stats: stats,
+                        bunFile: Bun.file(path)
+                    })
                     list.files.push(file);
                 }
             }
