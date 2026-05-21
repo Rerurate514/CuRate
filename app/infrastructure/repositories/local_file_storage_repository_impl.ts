@@ -20,7 +20,7 @@ export class LocalFileStorageRepository implements IFileStorageRepository {
             await mkdir(dirPath, { recursive: true });
             await Bun.write(fullPath, data);
             
-            return new Success(undefined);
+            return new Success();
         } catch (error) {
             return new Failure(new FailedToCreateFileError());
         }
@@ -32,9 +32,7 @@ export class LocalFileStorageRepository implements IFileStorageRepository {
             const file = Bun.file(fullPath);
             const isExist = await file.exists();
 
-            if (!isExist) {
-                return new Failure(new FailedToReadFileError());
-            }
+            if (!isExist) return new Failure(new FailedToReadFileError());
 
             const arrayBuffer = await file.arrayBuffer();
             return new Success(Buffer.from(arrayBuffer));
@@ -49,12 +47,10 @@ export class LocalFileStorageRepository implements IFileStorageRepository {
             const file = Bun.file(fullPath);
             const isExist = await file.exists();
 
-            if (!isExist) {
-                return new Success(undefined);
-            }
+            if (!isExist) return new Success();
 
             await file.delete();
-            return new Success(undefined);
+            return new Success();
         } catch (error) {
             return new Failure(new FailedToDeleteFileError());
         }
