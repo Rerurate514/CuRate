@@ -1,5 +1,6 @@
 import { PasswordMismatchError } from "../core/exceptions/password_mismatch_error";
 import { Failure, Result, Success } from "../core/utils/result";
+import { EXPIRES_IN_SECONDS } from "../domain/constants/expires_in_seconds";
 import { SessionDataEntity } from "../domain/entities/session_data.entity";
 import { IDbSessionRepository } from "../domain/repositories/i_db_session_repository";
 import { IDbUsersRepository } from "../domain/repositories/i_db_users_repository";
