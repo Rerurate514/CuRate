@@ -1,8 +1,9 @@
-import { SessionData } from "../entities/session_data.entity"
+import { Result } from "../../core/utils/result"
+import { SessionDataEntity } from "../entities/session_data.entity"
 
 export interface IDbSessionRepository {
-    create(session: SessionData): void
-    findById(id: string): SessionData| null
-    deleteById(id: string): void
-    deleteExpired(now: number): void
+    create(session: SessionDataEntity): Promise<Result<void>>
+    findById(id: string): Promise<Result<SessionDataEntity | null>>
+    deleteById(id: string): Promise<Result<void>>
+    deleteExpired(now: number): Promise<Result<void>>
 }
