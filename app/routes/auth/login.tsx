@@ -5,6 +5,7 @@ import { z } from 'zod';
 import { diMiddleware } from '../../middlewares/_di_middleware';
 import { COOKIE_IDENTIFIER } from '../../domain/constants/cookie_identifier';
 import { isProd } from '../../core/utils/is_prod';
+import { ErrorMessage } from '../../presentation/common/error_message';
 
 const loginSchema = z.object({
     username: z.string().min(1, 'Please Enter User name'),
@@ -37,24 +38,12 @@ export const POST = createRoute(
     zValidator('form', loginSchema, (result, c) => {
         if (!result.success) {
             return c.render(
-                <div class="flex flex-col justify-center min-h-screen max-w-md mx-auto px-6 text-center">
-
-                    <div class="bg-red-50 border border-red-200 rounded-xl p-6 mb-6 shadow-sm">
-                        <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-red-100 text-red-500 mb-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
-                            </svg>
-                        </div>
-
-                        <h2 class="text-lg font-bold text-red-800 mb-1">Login Error</h2>
-                        <p class="text-sm text-red-600">There is an error in your input. Please check again.</p>
-                    </div>
-
-                    <a href="/auth/login" class="inline-block bg-gray-800 rounded-lg w-full py-2.5 text-white font-semibold hover:bg-gray-700 transition-colors shadow-sm">
-                        return to login page
-                    </a>
-
-                </div>
+                <ErrorMessage 
+                    message="There is an error in your input. Please check again."
+                    e={result.error}
+                    backTo='/auth/login'
+                    title='Login Error'
+                ></ErrorMessage>
             );
         }
     }),
@@ -67,31 +56,34 @@ export const POST = createRoute(
         const session = await loginUsecase.execute(username, password);
 
         if(!session.success) {
-            const errorMessage = session.error instanceof Error ? session.error.message : String(session.error);
-            return c.render(<p class="text-red-500">A server error has occurred: {errorMessage}</p>);
-        }
-
-        if (!session.value?.id) {
             return c.render(
-                <div>
-                    <p class="text-red-500">The username or password is incorrect.</p>
-                    <a href='/auth/login'>retry</a>
-                </div>
+                <ErrorMessage 
+                    message="The username or password is incorrect."
+                    e={session.error}
+                    backTo='/auth/login'
+                    title='Login Error'
+                ></ErrorMessage>
             );
         }
 
         try {
-            setCookie(c, COOKIE_IDENTIFIER, session.value.id, {
+            setCookie(c, COOKIE_IDENTIFIER, session.value!.id, {
                 path: '/',
                 httpOnly: true,
                 secure: isProd,
-                maxAge: session.value.expiresAt.toMaxAgeSeconds()
+                maxAge: session.value!.expiresAt.toMaxAgeSeconds()
             });
             
             return c.redirect('/dashboard', 303);
-        } catch (error) {
-            const errorMessage = error instanceof Error ? error.message : String(error);
-            return c.render(<p class="text-red-500">A server error has occurred: {errorMessage}</p>);
+        } catch (error: any) {
+            return c.render(
+                <ErrorMessage 
+                    message="The username or password is incorrect."
+                    e={error}
+                    backTo='/auth/login'
+                    title='Login Error'
+                ></ErrorMessage>
+            );
         }
     }
 )
