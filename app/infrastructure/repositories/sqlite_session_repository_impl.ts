@@ -4,7 +4,7 @@ import { db } from "../db/db"
 import { Failure, Result, Success } from "../../core/utils/result"
 import { SessionNotFoundError } from "../../core/exceptions/session_not_found_error";
 
-export class BunSqliteSessionRepository implements IDbSessionRepository {
+export class SqliteSessionRepositoryImpl implements IDbSessionRepository {
     async create(session: SessionDataEntity): Promise<Result<void>> {
         const query = db.prepare(`
             INSERT INTO sessions (id, user_id, expires_at) 
