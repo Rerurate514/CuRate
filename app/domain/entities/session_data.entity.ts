@@ -1,8 +1,10 @@
+import { ExpiresAt } from "../vo/expires_at";
+
 export class SessionDataEntity {
     private constructor(
         public readonly id: string,
         public readonly userId: string,
-        public readonly expiresAt: Date
+        public readonly expiresAt: ExpiresAt
     ) {}
 
     static create(params: { userId: string; expiresInSeconds: number }) {
@@ -10,7 +12,7 @@ export class SessionDataEntity {
         return new SessionDataEntity(
             crypto.randomUUID(),
             params.userId,
-            expiresAt
+            new ExpiresAt(expiresAt)
         );
     }
 
@@ -28,10 +30,10 @@ export class SessionDataEntity {
             date = params.expiresAt;
         }
 
-        return new SessionDataEntity(params.id, params.userId, date);
+        return new SessionDataEntity(params.id, params.userId, new ExpiresAt(date));
     }
 
-    public isExpired(now: Date = new Date()): boolean {
-        return now.getTime() > this.expiresAt.getTime();
+    public isExpired(): boolean {
+        return this.expiresAt.isPast();
     }
 }

@@ -12,7 +12,7 @@ export class SqliteSessionRepositoryImpl implements IDbSessionRepository {
             VALUES (?, ?, ?)
         `);
 
-        const expiresUnix = Math.floor(session.expiresAt.getTime()) / 1000;
+        const expiresUnix = session.expiresAt.toUnix();
         try {
             await query.run(session.id, session.userId, expiresUnix);
             return new Success();
