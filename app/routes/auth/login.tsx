@@ -2,6 +2,8 @@ import { zValidator } from '@hono/zod-validator';
 import { setCookie } from 'hono/cookie';
 import { createRoute } from 'honox/factory';
 import { z } from 'zod';
+import { diMiddleware } from '../../middlewares/_di_middleware';
+import { COOKIE_IDENTIFIER } from '../../domain/constants/cookie_identifier';
 
 const loginSchema = z.object({
     username: z.string().min(1, 'Please Enter User name'),
@@ -30,6 +32,7 @@ export const GET = createRoute((c) => {
 });
 
 export const POST = createRoute(
+    diMiddleware,
     zValidator('form', loginSchema, (result, c) => {
         if (!result.success) {
             return c.render(
@@ -59,12 +62,13 @@ export const POST = createRoute(
             username,
             password
         } = c.req.valid('form');
+        const loginUsecase = c.get('loginUsecase');
+        const session = await loginUsecase.execute(username, password);
+
+        if(!session.success) return c.render(<p class="text-red-500">A server error has occurred</p>);
 
         try {
-            // const sessionId = await loginUsecase.execute({ username, password });
-            const sessionId = "id";
-
-            if (!sessionId) {
+            if (!session.value?.id) {
                 return c.render(
                     <div>
                         <p class="text-red-500">The username or password is incorrect.</p>
@@ -73,11 +77,12 @@ export const POST = createRoute(
                 );
             }
 
-            setCookie(c, 'curate_session', sessionId, {
+            setCookie(c, COOKIE_IDENTIFIER, session.value.id, {
                 path: '/',
                 httpOnly: true,
-                secure: true,
-                maxAge: 60 * 60 * 24 * 7
+                secure: isProd,
+                sameSite: isProd ? 'Lax' : 'None',
+                maxAge: session.value.expiresAt.toMaxAgeSeconds()
             });
 
             return c.redirect('/');
