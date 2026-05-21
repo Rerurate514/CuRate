@@ -7,7 +7,8 @@ import { SessionNotFoundError } from "../../core/exceptions/session_not_found_er
 export class SqliteSessionRepositoryImpl implements IDbSessionRepository {
     async create(session: SessionDataEntity): Promise<Result<void>> {
         const query = db.prepare(`
-            INSERT INTO sessions (id, user_id, expires_at) 
+            INSERT INTO 
+            sessions (id, user_id, expires_at) 
             VALUES (?, ?, ?)
         `);
 
@@ -22,7 +23,10 @@ export class SqliteSessionRepositoryImpl implements IDbSessionRepository {
 
     async findById(id: string): Promise<Result<SessionDataEntity| null>> {
         const query = db.prepare(`
-            SELECT id, user_id AS userId, expires_at AS expiresAt 
+            SELECT 
+                id, 
+                user_id AS userId, 
+                expires_at AS expiresAt 
             FROM sessions 
             WHERE id = ?
         `);
