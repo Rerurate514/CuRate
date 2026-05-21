@@ -89,7 +89,7 @@ export const POST = createRoute(
                 maxAge: session.value.expiresAt.toMaxAgeSeconds()
             });
 
-            return c.redirect('/');
+            return c.redirect('/dashboard');
         } catch (error) {
             const errorMessage = error instanceof Error ? error.message : String(error);
             return c.render(<p class="text-red-500">A server error has occurred: {errorMessage}</p>);
