@@ -1,4 +1,4 @@
-const formatBytes = (bytes: number): string => {
+export const formatBytes = (bytes: number): string => {
     if (bytes === 0) return "0 B";
     const k = 1024;
     const sizes = ["B", "KB", "MB", "GB"];
@@ -6,7 +6,7 @@ const formatBytes = (bytes: number): string => {
     return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i];
 };
 
-const formatDate = (date: Date): string => {
+export const formatDate = (date: Date): string => {
     return date.toLocaleDateString("ja-JP", {
         year: "numeric",
         month: "2-digit",
