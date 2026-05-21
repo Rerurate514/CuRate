@@ -14,7 +14,7 @@ db.run(`
 
     CREATE TABLE IF NOT EXISTS sessions (
         id TEXT PRIMARY KEY,
-        user_id TEXT UNIQUE NOT NULL,
+        user_id TEXT NOT NULL,
         expires_at INTEGER NOT NULL
     );
 `)
