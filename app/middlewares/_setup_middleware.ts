@@ -19,9 +19,9 @@ export const setupMiddleware = createMiddleware<DiEnv>(async (c, next) => {
     }
 
     const isCreatedAdmin = result.value;
-    if (isCreatedAdmin) {
-        return c.redirect('/auth/login');
+    if (!isCreatedAdmin) {
+        return c.redirect('/auth/setup');
     }
 
-    return c.redirect('/auth/setup');
+    await next();
 });
