@@ -51,7 +51,6 @@ export const POST = createRoute(
                 <ErrorMessage 
                     message="The username or password is incorrect."
                     buttonText='return to login page'
-                    e={session.error}
                     backTo='/auth/login'
                     title='Login Error'
                 ></ErrorMessage>
@@ -72,7 +71,6 @@ export const POST = createRoute(
                 <ErrorMessage 
                     message="The username or password is incorrect."
                     buttonText='return to login page'
-                    e={error}
                     backTo='/auth/login'
                     title='Login Error'
                 ></ErrorMessage>
