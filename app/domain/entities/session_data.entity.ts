@@ -7,12 +7,11 @@ export class SessionDataEntity {
         public readonly expiresAt: ExpiresAt
     ) {}
 
-    static create(params: { userId: string; expiresInSeconds: number }) {
-        const expiresAt = new Date(Date.now() + params.expiresInSeconds * 1000);
+    static create(params: { userId: string; expiresAt: ExpiresAt }) {
         return new SessionDataEntity(
             crypto.randomUUID(),
             params.userId,
-            new ExpiresAt(expiresAt)
+            params.expiresAt
         );
     }
 

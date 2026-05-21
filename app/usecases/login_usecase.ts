@@ -3,6 +3,7 @@ import { Failure, Result, Success } from "../core/utils/result";
 import { SessionDataEntity } from "../domain/entities/session_data.entity";
 import { IDbSessionRepository } from "../domain/repositories/i_db_session_repository";
 import { IDbUsersRepository } from "../domain/repositories/i_db_users_repository";
+import { ExpiresAt } from "../domain/vo/expires_at";
 
 export class LoginUsecase {
     constructor(
@@ -20,7 +21,7 @@ export class LoginUsecase {
 
         const session = SessionDataEntity.create({
             userId: userResult.value!.id,
-            expiresInSeconds: EXPIRES_IN_SECONDS
+            expiresAt: ExpiresAt.fromSeconds(EXPIRES_IN_SECONDS)
         });
         const result = await this.sessionRepo.create(session);
 
