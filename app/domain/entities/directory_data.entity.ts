@@ -6,8 +6,6 @@ export class DirectoryDataEntity {
         public readonly id: string,
         public readonly name: string,
         public readonly path: string,
-        public readonly subDirectories: DirectoryDataEntity[],
-        public readonly files: FileDataEntity[],
         public readonly createdAt: Date,
         public readonly modifiedAt: Date
     ) {}
@@ -17,15 +15,11 @@ export class DirectoryDataEntity {
         path: string;
         createdAt: Date;
         modifiedAt: Date;
-        subDirectories?: DirectoryDataEntity[];
-        files?: FileDataEntity[];
     }) {
         return new DirectoryDataEntity(
             crypto.randomUUID(),
             params.name,
             params.path,
-            params.subDirectories ?? [],
-            params.files ?? [],
             params.createdAt,
             params.modifiedAt
         );
@@ -35,15 +29,12 @@ export class DirectoryDataEntity {
         name: string;
         path: string;
         stats: Stats;
-        subDirectories?: DirectoryDataEntity[];
         files?: FileDataEntity[];
     }) {
         return new DirectoryDataEntity(
             crypto.randomUUID(),
             params.name,
             params.path,
-            params.subDirectories ?? [],
-            params.files ?? [],
             params.stats.birthtime,
             params.stats.mtime
         );
