@@ -1,2 +1,2 @@
-export const dbFileName = "curate.db";
-export const driveDirectory = "drive/"
+export const DB_FILE_NAME = "curate.db";
+export const DRIVE_DIR = "drive/"

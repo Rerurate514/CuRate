@@ -6,7 +6,7 @@ import { LoginUsecase } from "../usecases/login_usecase"
 import { SqliteSessionRepositoryImpl } from "../infrastructure/repositories/sqlite_session_repository_impl"
 import { CheckValidSessionUsecase } from './../usecases/check_valid_session_usecase';
 import { LocalFileStorageRepository } from "../infrastructure/repositories/local_file_storage_repository_impl"
-import { driveDirectory } from "../domain/constants/file_names"
+import { DRIVE_DIR } from "../domain/constants/file_names"
 
 export type DiEnv = {
     Variables: {
@@ -19,7 +19,7 @@ export type DiEnv = {
 
 const userRepo = new SqliteUsersRepositoryImpl();
 const sessionRepo = new SqliteSessionRepositoryImpl();
-const fileRepo = new LocalFileStorageRepository(driveDirectory);
+const fileRepo = new LocalFileStorageRepository(DRIVE_DIR);
 
 const setupUsecase = new SetupUsecase(userRepo);
 const checkInitializeUsecase = new CheckInitializeUsecase(userRepo);
