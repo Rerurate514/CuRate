@@ -1,0 +1,1 @@
+export const SESSION_CLEANUP_INTERVAL = 1000 * 60 * 60;
