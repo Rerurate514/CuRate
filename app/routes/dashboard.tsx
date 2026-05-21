@@ -1,5 +1,5 @@
 import { createRoute } from "honox/factory"
-import { NavCard } from "../presentation/common/nav_button"
+import { NavCard } from "../presentation/dashboard/nav_card"
 
 export const GET = createRoute((c) => {
     return c.render(
