@@ -1,3 +1,6 @@
+import { Stats } from "node:fs";
+import { BunFile } from "bun";
+
 export class FileDataEntity {
     private constructor(
         public readonly id: string,
@@ -5,8 +8,8 @@ export class FileDataEntity {
         public readonly path: string,
         public readonly size: number,
         public readonly mimeType: string,
-        public readonly parentDirectoryId: string | null,
-        public readonly createdAt: Date
+        public readonly createdAt: Date,
+        public readonly modifiedAt: Date
     ) {}
 
     static create(params: {
@@ -14,17 +17,36 @@ export class FileDataEntity {
         path: string;
         size: number;
         mimeType: string;
-        parentDirectoryId: string | null;
+        createdAt: Date;
+        modifiedAt: Date;
     }) {
-        const now = new Date();
         return new FileDataEntity(
             crypto.randomUUID(),
             params.name,
             params.path,
             params.size,
             params.mimeType,
-            params.parentDirectoryId,
-            now
+            params.createdAt,
+            params.modifiedAt
+        );
+    }
+
+    static createFromFs(params: {
+        name: string;
+        path: string;
+        stats: Stats;
+        bunFile: BunFile;
+    }) {
+        const mimeType = params.bunFile.type || "application/octet-stream";
+
+        return new FileDataEntity(
+            crypto.randomUUID(),
+            params.name,
+            params.path,
+            params.stats.size,
+            mimeType,
+            params.stats.birthtime,
+            params.stats.mtime
         );
     }
 }

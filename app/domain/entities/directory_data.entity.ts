@@ -1,3 +1,4 @@
+import { Stats } from "node:fs";
 import { FileDataEntity } from "./file_data.entity";
 
 export class DirectoryDataEntity {
@@ -5,28 +6,46 @@ export class DirectoryDataEntity {
         public readonly id: string,
         public readonly name: string,
         public readonly path: string,
-        public readonly parentDirectoryId: string | null,
         public readonly subDirectories: DirectoryDataEntity[],
         public readonly files: FileDataEntity[],
-        public readonly createdAt: Date
+        public readonly createdAt: Date,
+        public readonly modifiedAt: Date
     ) {}
 
     static create(params: {
         name: string;
         path: string;
-        parentDirectoryId: string | null;
+        createdAt: Date;
+        modifiedAt: Date;
         subDirectories?: DirectoryDataEntity[];
         files?: FileDataEntity[];
     }) {
-        const now = new Date();
         return new DirectoryDataEntity(
             crypto.randomUUID(),
             params.name,
             params.path,
-            params.parentDirectoryId,
             params.subDirectories ?? [],
             params.files ?? [],
-            now
+            params.createdAt,
+            params.modifiedAt
+        );
+    }
+
+    static createFromFs(params: {
+        name: string;
+        path: string;
+        stats: Stats;
+        subDirectories?: DirectoryDataEntity[];
+        files?: FileDataEntity[];
+    }) {
+        return new DirectoryDataEntity(
+            crypto.randomUUID(),
+            params.name,
+            params.path,
+            params.subDirectories ?? [],
+            params.files ?? [],
+            params.stats.birthtime,
+            params.stats.mtime
         );
     }
 }
