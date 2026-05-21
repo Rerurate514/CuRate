@@ -1,4 +1,5 @@
 import * as path from "node:path";
+import { mkdir } from "node:fs/promises";
 import { Failure, Result, Success } from "../../core/utils/result";
 import { IFileStorageRepository } from "../../domain/repositories/i_file_storage_repository";
 import { FailedToCreateFileError } from "../../core/exceptions/failed_to_create_file_error";
@@ -14,7 +15,11 @@ export class LocalFileStorageRepository implements IFileStorageRepository {
     async save(filePath: string, data: Buffer | string): Promise<Result<void>> {
         try {
             const fullPath = path.join(this.basePath, filePath);
+            const dirPath = path.dirname(fullPath);
+            
+            await mkdir(dirPath, { recursive: true });
             await Bun.write(fullPath, data);
+            
             return new Success(undefined);
         } catch (error) {
             return new Failure(new FailedToCreateFileError());
@@ -25,6 +30,12 @@ export class LocalFileStorageRepository implements IFileStorageRepository {
         try {
             const fullPath = path.join(this.basePath, filePath);
             const file = Bun.file(fullPath);
+            const isExist = await file.exists();
+
+            if (!isExist) {
+                return new Failure(new FailedToReadFileError());
+            }
+
             const arrayBuffer = await file.arrayBuffer();
             return new Success(Buffer.from(arrayBuffer));
         } catch (error) {
@@ -36,6 +47,12 @@ export class LocalFileStorageRepository implements IFileStorageRepository {
         try {
             const fullPath = path.join(this.basePath, filePath);
             const file = Bun.file(fullPath);
+            const isExist = await file.exists();
+
+            if (!isExist) {
+                return new Success(undefined);
+            }
+
             await file.delete();
             return new Success(undefined);
         } catch (error) {
