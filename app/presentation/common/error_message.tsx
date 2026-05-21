@@ -7,7 +7,7 @@ type Props = {
 }
 
 export const ErrorMessage = ({ message, backTo, buttonText, e, title }: Props) => {
-    const errorMessage = e instanceof Error ? e.message : String(e);
+    const errorMessage = e instanceof Error ? e.message : "";
     return <div class="flex flex-col justify-center min-h-screen max-w-md mx-auto px-6 text-center">
         <div class="bg-red-50 border border-red-200 rounded-xl p-6 mb-6 shadow-sm">
             <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-red-100 text-red-500 mb-4">
