@@ -65,18 +65,21 @@ export const POST = createRoute(
         const loginUsecase = c.get('loginUsecase');
         const session = await loginUsecase.execute(username, password);
 
-        if(!session.success) return c.render(<p class="text-red-500">A server error has occurred</p>);
+        if(!session.success) {
+            const errorMessage = session.error instanceof Error ? session.error.message : String(session.error);
+            return c.render(<p class="text-red-500">A server error has occurred: {errorMessage}</p>);
+        }
+
+        if (!session.value?.id) {
+            return c.render(
+                <div>
+                    <p class="text-red-500">The username or password is incorrect.</p>
+                    <a href='/auth/login'>retry</a>
+                </div>
+            );
+        }
 
         try {
-            if (!session.value?.id) {
-                return c.render(
-                    <div>
-                        <p class="text-red-500">The username or password is incorrect.</p>
-                        <a href='/auth/login'>retry</a>
-                    </div>
-                );
-            }
-
             setCookie(c, COOKIE_IDENTIFIER, session.value.id, {
                 path: '/',
                 httpOnly: true,
@@ -87,7 +90,8 @@ export const POST = createRoute(
 
             return c.redirect('/');
         } catch (error) {
-            return c.render(<p class="text-red-500">A server error has occurred</p>)
+            const errorMessage = error instanceof Error ? error.message : String(error);
+            return c.render(<p class="text-red-500">A server error has occurred: {errorMessage}</p>);
         }
     }
 )
