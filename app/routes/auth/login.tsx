@@ -40,6 +40,7 @@ export const POST = createRoute(
             return c.render(
                 <ErrorMessage 
                     message="There is an error in your input. Please check again."
+                    buttonText='return to login page'
                     e={result.error}
                     backTo='/auth/login'
                     title='Login Error'
@@ -59,6 +60,7 @@ export const POST = createRoute(
             return c.render(
                 <ErrorMessage 
                     message="The username or password is incorrect."
+                    buttonText='return to login page'
                     e={session.error}
                     backTo='/auth/login'
                     title='Login Error'
@@ -79,6 +81,7 @@ export const POST = createRoute(
             return c.render(
                 <ErrorMessage 
                     message="The username or password is incorrect."
+                    buttonText='return to login page'
                     e={error}
                     backTo='/auth/login'
                     title='Login Error'

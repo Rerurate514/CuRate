@@ -1,11 +1,12 @@
 type Props = {
     message: string
     backTo: string
+    buttonText: string
     e?: Error
     title?: string
 }
 
-export const ErrorMessage = ({ message, backTo, e, title }: Props) => {
+export const ErrorMessage = ({ message, backTo, buttonText, e, title }: Props) => {
     const errorMessage = e instanceof Error ? e.message : String(e);
     return <div class="flex flex-col justify-center min-h-screen max-w-md mx-auto px-6 text-center">
         <div class="bg-red-50 border border-red-200 rounded-xl p-6 mb-6 shadow-sm">
@@ -19,7 +20,7 @@ export const ErrorMessage = ({ message, backTo, e, title }: Props) => {
             <p class="text-sm text-red-600">{errorMessage}</p>
         </div>
         <a href={backTo} class="inline-block bg-gray-800 rounded-lg w-full py-2.5 text-white font-semibold hover:bg-gray-700 transition-colors shadow-sm">
-            return to login page
+            {buttonText}
         </a>
     </div>
 }
