@@ -21,7 +21,7 @@ export class SqliteSessionRepositoryImpl implements IDbSessionRepository {
         }
     }
 
-    async findById(id: string): Promise<Result<SessionDataEntity| null>> {
+    async findById(id: string): Promise<Result<SessionDataEntity | null>> {
         const query = db.prepare(`
             SELECT 
                 id, 
@@ -35,10 +35,10 @@ export class SqliteSessionRepositoryImpl implements IDbSessionRepository {
             const record = query.get(id) as {
                 id: string,
                 userId: string,
-                expiresAt: string
+                expiresAt: number
             } | null;
 
-            if(record === null) {
+            if (record === null) {
                 return new Failure(new SessionNotFoundError());
             }
 
@@ -64,7 +64,6 @@ export class SqliteSessionRepositoryImpl implements IDbSessionRepository {
         try {
             await query.run(id);
             return new Success();
-
         } catch (e: any) {
             return new Failure(e);
         }
@@ -74,9 +73,9 @@ export class SqliteSessionRepositoryImpl implements IDbSessionRepository {
         const query = db.prepare(`
             DELETE
             FROM sessions
-            WHERE expires_at < ?    
+            WHERE expires_at < ?
         `);
-        
+            
         try {
             await query.run(now);
             return new Success();
