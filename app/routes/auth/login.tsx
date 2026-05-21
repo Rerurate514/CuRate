@@ -85,7 +85,6 @@ export const POST = createRoute(
                 path: '/',
                 httpOnly: true,
                 secure: isProd,
-                sameSite: isProd ? 'Lax' : 'None',
                 maxAge: session.value.expiresAt.toMaxAgeSeconds()
             });
 
