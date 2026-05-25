@@ -7,7 +7,7 @@ export class DeleteFileUsecase {
     ) { }
 
     async execute(targetPath: string): Promise<Result<void>> {
-        const deleteResult = await this.fileRepo.delete(targetPath);
+        const deleteResult = await this.fileRepo.delete(targetPath, { useBaseDir: false });
         if(!deleteResult.success) return new Failure(deleteResult.error);
 
         return new Success();
