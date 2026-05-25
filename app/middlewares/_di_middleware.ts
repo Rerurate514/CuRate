@@ -9,6 +9,7 @@ import { LocalFileStorageRepository } from "../infrastructure/repositories/local
 import { DRIVE_DIR } from "../domain/constants/file_names"
 import { LocalDriveControllRepositoryImpl } from "../infrastructure/repositories/local_drive_controll_repository_impl"
 import { GetDriveEntriesUsecase } from "../usecases/get_drive_entries_usecase"
+import { LocalDirectoryRepositoryImpl } from "../infrastructure/repositories/local_directory_repository_impl"
 
 export type DiEnv = {
     Variables: {
@@ -23,6 +24,7 @@ export type DiEnv = {
 const userRepo = new SqliteUsersRepositoryImpl();
 const sessionRepo = new SqliteSessionRepositoryImpl();
 const fileRepo = new LocalFileStorageRepository(DRIVE_DIR);
+const dirRepo = new LocalDirectoryRepositoryImpl(DRIVE_DIR);
 const driveRepo = new LocalDriveControllRepositoryImpl();
 
 const setupUsecase = new SetupUsecase(userRepo);
