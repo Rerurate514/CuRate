@@ -1,6 +1,6 @@
 import { createRoute } from "honox/factory";
 import { diMiddleware } from "../../middlewares/_di_middleware";
-import { DRIVE_DIR } from "../../domain/constants/file_names";
+import { BASE_DRIVE_DIR, DRIVE_DIR } from "../../domain/constants/file_names";
 import { FileExplorer } from "../../presentation/drive/file_explorer";
 import { ErrorMessage } from "../../presentation/common/error_message";
 import FilePicker from "../../islands/file_picker";
@@ -42,6 +42,7 @@ export const GET = createRoute(diMiddleware, async (c) => {
 });
 
 export const POST = createRoute(
+  diMiddleware,
   zValidator("form", multiUploadSchema, (result, c) => {
     if (!result.success) {
       return c.render(
@@ -58,6 +59,37 @@ export const POST = createRoute(
   async (c) => {
     const { file: files } = c.req.valid("form");
 
-    return c.text(`The upload of ${files.length} files was successful.`);
+    const filesUploadUsecase = c.get("uploadFilesUsecase");
+    const uploadResult = await filesUploadUsecase.execute("", files);
+    if (!uploadResult.success) {
+      return c.render(
+        <ErrorMessage
+          title="Failed to Upload Files"
+          message="Something went wrong while retrieving the file list. Please try again."
+          buttonText="Back To Drive"
+          backTo="/drive"
+        />,
+      );
+    }
+
+    const getEntriesUsecase = c.get("getDriveEntriesUsecase");
+    const entriesResult = await getEntriesUsecase.execute(DRIVE_DIR);
+    if (!entriesResult.success || !entriesResult.value) {
+      return c.render(
+        <ErrorMessage
+          title="Failed to Load Directory"
+          message="Something went wrong while retrieving the file list. Please try again."
+          buttonText="Retry"
+          backTo="/drive"
+        />,
+      );
+    }
+
+    return c.render(
+      <div>
+        <FileExplorer entries={entriesResult.value}></FileExplorer>
+        <FilePicker path="/drive"></FilePicker>
+      </div>,
+    );
   },
 );
