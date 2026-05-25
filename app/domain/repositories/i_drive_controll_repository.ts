@@ -5,4 +5,5 @@ export interface IDriveControllRepository {
   getTargetEntries(targetPath: string): Promise<Result<TargetEntries>>;
   existsDriveDir(): Promise<Result<boolean>>;
   createDriveDir(): Promise<Result<void>>;
+  resolveDrivePath(): Result<string>;
 }
