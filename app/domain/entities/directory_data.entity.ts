@@ -1,5 +1,4 @@
 import { Stats } from "node:fs";
-import { FileDataEntity } from "./file_data.entity";
 
 export class DirectoryDataEntity {
   private constructor(
