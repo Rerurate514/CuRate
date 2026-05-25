@@ -29,9 +29,8 @@ const sessionRepo = new SqliteSessionRepositoryImpl();
 const fileRepo = new LocalFileStorageRepository(getDriveDir());
 const dirRepo = new LocalDirectoryRepositoryImpl(getDriveDir());
 const driveRepo = new LocalDriveControllRepositoryImpl();
-const envRepo = new EnvConfigRepositoryImpl();
 
-const setupUsecase = new SetupUsecase(userRepo, envRepo);
+const setupUsecase = new SetupUsecase(userRepo);
 const checkInitializeUsecase = new CheckInitializeUsecase(userRepo);
 const loginUsecase = new LoginUsecase(userRepo, sessionRepo);
 const checkValidSessionUsecase = new CheckValidSessionUsecase(sessionRepo);
