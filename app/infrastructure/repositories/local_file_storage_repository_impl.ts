@@ -1,29 +1,40 @@
 import * as path from "node:path";
 import { mkdir } from "node:fs/promises";
 import { Failure, Result, Success } from "../../core/utils/result";
-import { IFileStorageRepository } from "../../domain/repositories/i_file_storage_repository";
+import { IFileStorageRepository, FileStorageOptions } from "../../domain/repositories/i_file_storage_repository";
 import { FailedToReadFileError } from "../../core/exceptions/failed_to_read_file_error";
 
 export class LocalFileStorageRepository implements IFileStorageRepository {
   constructor(private readonly basePath: string) {}
 
-  async save(filePath: string, data: Buffer | string): Promise<Result<void>> {
+  private resolvePath(filePath: string, useBaseDir: boolean): string {
+    return useBaseDir ? path.join(this.basePath, filePath) : filePath;
+  }
+
+  async save(
+    filePath: string,
+    data: Buffer | string,
+    { useBaseDir = true }: FileStorageOptions = {}
+  ): Promise<Result<void>> {
     try {
-      const fullPath = path.join(this.basePath, filePath);
+      const fullPath = this.resolvePath(filePath, useBaseDir);
       const dirPath = path.dirname(fullPath);
 
       await mkdir(dirPath, { recursive: true });
       await Bun.write(fullPath, data);
 
-      return new Success();
+      return new Success(undefined);
     } catch (e: any) {
       return new Failure(e);
     }
   }
 
-  async read(filePath: string): Promise<Result<Buffer>> {
+  async read(
+    filePath: string,
+    { useBaseDir = true }: FileStorageOptions = {}
+  ): Promise<Result<Buffer>> {
     try {
-      const fullPath = path.join(this.basePath, filePath);
+      const fullPath = this.resolvePath(filePath, useBaseDir);
       const file = Bun.file(fullPath);
       const isExist = await file.exists();
 
@@ -38,25 +49,28 @@ export class LocalFileStorageRepository implements IFileStorageRepository {
 
   async delete(
     filePath: string, 
-    { useBaseDir = true }: { useBaseDir?: boolean } = {}
+    { useBaseDir = true }: FileStorageOptions = {}
   ): Promise<Result<void>> {
     try {
-      const fullPath = useBaseDir ? path.join(this.basePath, filePath) : filePath;
+      const fullPath = this.resolvePath(filePath, useBaseDir);
       const file = Bun.file(fullPath);
       const isExist = await file.exists();
 
-      if (!isExist) return new Success();
+      if (!isExist) return new Success(undefined);
 
       await file.delete();
-      return new Success();
+      return new Success(undefined);
     } catch (e: any) {
       return new Failure(e);
     }
   }
 
-  async exists(filePath: string): Promise<Result<boolean>> {
+  async exists(
+    filePath: string,
+    { useBaseDir = true }: FileStorageOptions = {}
+  ): Promise<Result<boolean>> {
     try {
-      const fullPath = path.join(this.basePath, filePath);
+      const fullPath = this.resolvePath(filePath, useBaseDir);
       const file = Bun.file(fullPath);
       const isExist = await file.exists();
       return new Success(isExist);
