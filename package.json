@@ -4,6 +4,7 @@
   "scripts": {
     "dev": "bunx --bun vite",
     "build": "vite build --mode client && vite build",
+    "setup": "bun run scripts/setup.ts",
     "lint": "bun x @biomejs/biome lint ./app",
     "lint:fix": "bun x @biomejs/biome check --write ./app",
     "format": "bun x @biomejs/biome format --write ./app"

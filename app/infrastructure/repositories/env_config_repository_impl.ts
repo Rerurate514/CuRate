@@ -10,7 +10,7 @@ export class EnvConfigRepositoryImpl implements IEnvConfigRepository {
       if(!resolveDrivePathResult.success) return new Failure(resolveDrivePathResult.error);
 
       const envPath = path.join(process.cwd(), ".env");
-      const envContent = `DRIVE_PATH="${resolveDrivePathResult}"\n`;
+      const envContent = `DRIVE_PATH="${resolveDrivePathResult.value}"\n`;
 
       await Bun.write(envPath, envContent);
 
