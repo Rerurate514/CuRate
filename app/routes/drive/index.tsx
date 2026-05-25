@@ -36,7 +36,7 @@ export const GET = createRoute(diMiddleware, async (c) => {
   return c.render(
     <div>
       <FilePicker path="/drive" />
-      <FileExplorerWrapper initialEntries={result.value}/>
+      <FileExplorerWrapper initialEntries={result.value} />
     </div>,
   );
 });
@@ -88,7 +88,7 @@ export const POST = createRoute(
     return c.render(
       <div>
         <FilePicker path="/drive" />
-        <FileExplorerWrapper initialEntries={entriesResult.value}/>
+        <FileExplorerWrapper initialEntries={entriesResult.value} />
       </div>,
     );
   },

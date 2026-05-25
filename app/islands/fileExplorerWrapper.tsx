@@ -31,4 +31,3 @@ export default function FileExplorerWrapper({ initialEntries }: Props) {
 
   return <FileExplorer entries={entries} />;
 }
-
