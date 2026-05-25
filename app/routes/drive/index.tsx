@@ -2,10 +2,10 @@ import { createRoute } from "honox/factory";
 import { diMiddleware } from "../../middlewares/_di_middleware";
 import { FileExplorer } from "../../presentation/drive/file_explorer";
 import { ErrorMessage } from "../../presentation/common/error_message";
-import FilePicker from "../../islands/file_picker";
 import { zValidator } from "@hono/zod-validator";
 import z from "zod";
 import { DRIVE_DIR } from "../../domain/constants/file_names";
+import FilePicker from "../../islands/fpicker";
 
 const multiUploadSchema = z.object({
   file: z
@@ -35,8 +35,8 @@ export const GET = createRoute(diMiddleware, async (c) => {
 
   return c.render(
     <div>
-      <FileExplorer entries={result.value}></FileExplorer>
-      <FilePicker path="/drive"></FilePicker>
+      <FilePicker path="/drive" />
+      <FileExplorer entries={result.value} />
     </div>,
   );
 });
@@ -87,8 +87,8 @@ export const POST = createRoute(
 
     return c.render(
       <div>
-        <FileExplorer entries={entriesResult.value}></FileExplorer>
-        <FilePicker path="/drive"></FilePicker>
+        <FilePicker path="/drive" />
+        <FileExplorer entries={entriesResult.value} />
       </div>,
     );
   },
