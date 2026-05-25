@@ -3,7 +3,7 @@ import { diMiddleware } from "../../../middlewares/_di_middleware";
 import { zValidator } from "@hono/zod-validator";
 import { deleteFileSchema } from "../../../domain/schemas/delete_file.schema";
 
-export const POST = createRoute(
+export const DELETE = createRoute(
     diMiddleware,
     zValidator("json", deleteFileSchema),
     async (c) => {
