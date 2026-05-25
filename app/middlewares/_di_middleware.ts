@@ -19,7 +19,7 @@ export type DiEnv = {
     loginUsecase: LoginUsecase;
     checkValidSessionUsecase: CheckValidSessionUsecase;
     getDriveEntriesUsecase: GetDriveEntriesUsecase;
-    uploadFilesUsecase: UploadFilesUsecase
+    uploadFilesUsecase: UploadFilesUsecase;
   };
 };
 

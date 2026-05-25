@@ -25,7 +25,8 @@ export default function FileExplorerWrapper({ initialEntries }: Props) {
     };
 
     window.addEventListener("upload-success", handleUploadSuccess);
-    return () => window.removeEventListener("upload-success", handleUploadSuccess);
+    return () =>
+      window.removeEventListener("upload-success", handleUploadSuccess);
   }, []);
 
   return <FileExplorer entries={entries} />;

@@ -4,9 +4,7 @@ import { IFileStorageRepository } from "../domain/repositories/i_file_storage_re
 import path from "node:path";
 
 export class UploadFilesUsecase {
-  constructor(
-    private readonly fileRepo: IFileStorageRepository
-  ) {}
+  constructor(private readonly fileRepo: IFileStorageRepository) {}
 
   async execute(dirPath: string, files: File[]): Promise<Result<void>> {
     try {
@@ -16,12 +14,12 @@ export class UploadFilesUsecase {
 
       for (const file of files) {
         const fileFullPath = path.join(dirPath, file.name);
-        
+
         const arrayBuffer = await file.arrayBuffer();
         const buffer = Buffer.from(arrayBuffer);
 
         const result = await this.fileRepo.save(fileFullPath, buffer);
-        
+
         if (!result.success) return result;
       }
 

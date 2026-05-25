@@ -25,7 +25,7 @@ export default function FilePicker({ path }: Props) {
         setStatus("アップロード成功！");
         setSelectedFileNames([]);
         form.reset();
-        
+
         const event = new CustomEvent("upload-success");
         window.dispatchEvent(event);
       } else {
@@ -40,7 +40,7 @@ export default function FilePicker({ path }: Props) {
     const input = e.target as HTMLInputElement;
     const files = input.files;
     if (files && files.length > 0) {
-      setSelectedFileNames(Array.from(files).map(f => f.name));
+      setSelectedFileNames(Array.from(files).map((f) => f.name));
     } else {
       setSelectedFileNames([]);
     }
@@ -91,7 +91,9 @@ export default function FilePicker({ path }: Props) {
               📄 {selectedFileNames.join(", ")}
             </span>
           ) : (
-            <span className="text-xs text-gray-400">ファイルが選択されていません</span>
+            <span className="text-xs text-gray-400">
+              ファイルが選択されていません
+            </span>
           )}
         </div>
 
@@ -104,7 +106,9 @@ export default function FilePicker({ path }: Props) {
           <button
             type="submit"
             className={`px-5 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg shadow-sm transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${
-              selectedFileNames.length === 0 ? "opacity-50 cursor-not-allowed" : ""
+              selectedFileNames.length === 0
+                ? "opacity-50 cursor-not-allowed"
+                : ""
             }`}
             disabled={selectedFileNames.length === 0}
           >

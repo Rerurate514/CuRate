@@ -25,11 +25,7 @@ export class DirectoryDataEntity {
     );
   }
 
-  static createFromFs(params: {
-    name: string;
-    path: string;
-    stats: Stats;
-  }) {
+  static createFromFs(params: { name: string; path: string; stats: Stats }) {
     return new DirectoryDataEntity(
       crypto.randomUUID(),
       params.name,

@@ -7,7 +7,8 @@ export class EnvConfigRepositoryImpl implements IEnvConfigRepository {
   async saveDrivePath(): Promise<Result<void>> {
     try {
       const resolveDrivePathResult = this.resolveDrivePath();
-      if(!resolveDrivePathResult.success) return new Failure(resolveDrivePathResult.error);
+      if (!resolveDrivePathResult.success)
+        return new Failure(resolveDrivePathResult.error);
 
       const envPath = path.join(process.cwd(), ".env");
       const envContent = `DRIVE_PATH=${resolveDrivePathResult.value}\n`;
