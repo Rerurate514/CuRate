@@ -7,11 +7,7 @@ import { COOKIE_IDENTIFIER } from "../../domain/constants/cookie_identifier";
 import { isProd } from "../../core/utils/is_prod";
 import { ErrorMessage } from "../../presentation/common/error_message";
 import { EntryForm } from "../../presentation/common/entry_form";
-
-const loginSchema = z.object({
-  username: z.string().min(1, "Please Enter User name"),
-  password: z.string().min(1, "Please Enter Password"),
-});
+import { loginSchema } from "../../domain/schemas/login.schema";
 
 export const GET = createRoute((c) => {
   return c.render(
