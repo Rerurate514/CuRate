@@ -6,17 +6,7 @@ import z from "zod";
 import { DRIVE_DIR } from "../../domain/constants/file_names";
 import FilePicker from "../../islands/fpicker";
 import FileExplorerWrapper from "../../islands/fileExplorerWrapper";
-
-const multiUploadSchema = z.object({
-  file: z
-    .preprocess(
-      (val) => (Array.isArray(val) ? val : val ? [val] : []),
-      z.array(z.instanceof(File)),
-    )
-    .refine((files) => files.length > 0, {
-      message: "Please select at least one file",
-    }),
-});
+import { multiUploadSchema } from "../../domain/schemas/multi_upload.schema";
 
 export const GET = createRoute(diMiddleware, async (c) => {
   const usecase = c.get("getDriveEntriesUsecase");
