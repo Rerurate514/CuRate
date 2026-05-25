@@ -5,7 +5,7 @@ import { ErrorMessage } from "../../presentation/common/error_message";
 import FilePicker from "../../islands/file_picker";
 import { zValidator } from "@hono/zod-validator";
 import z from "zod";
-import { getDriveDir } from "../../domain/constants/file_names";
+import { DRIVE_DIR } from "../../domain/constants/file_names";
 
 const multiUploadSchema = z.object({
   file: z
@@ -20,7 +20,7 @@ const multiUploadSchema = z.object({
 
 export const GET = createRoute(diMiddleware, async (c) => {
   const usecase = c.get("getDriveEntriesUsecase");
-  const result = await usecase.execute(getDriveDir());
+  const result = await usecase.execute(DRIVE_DIR);
 
   if (!result.success || !result.value) {
     return c.render(
@@ -73,7 +73,7 @@ export const POST = createRoute(
     }
 
     const getEntriesUsecase = c.get("getDriveEntriesUsecase");
-    const entriesResult = await getEntriesUsecase.execute(getDriveDir());
+    const entriesResult = await getEntriesUsecase.execute(DRIVE_DIR);
     if (!entriesResult.success || !entriesResult.value) {
       return c.render(
         <ErrorMessage
