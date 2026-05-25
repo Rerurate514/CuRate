@@ -1,7 +1,7 @@
 import { useState, useEffect } from "hono/jsx";
 import { FileExplorer } from "../presentation/drive/file_explorer";
-import { DriveEntriesSchema } from "../routes/api/drive/entries";
 import type { z } from "zod";
+import { DriveEntriesSchema } from "../domain/schemas/drive_entries.schema";
 
 type Entries = NonNullable<z.infer<typeof DriveEntriesSchema>["entries"]>;
 
