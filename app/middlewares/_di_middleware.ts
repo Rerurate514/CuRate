@@ -6,12 +6,12 @@ import { LoginUsecase } from "../usecases/login_usecase";
 import { SqliteSessionRepositoryImpl } from "../infrastructure/repositories/sqlite_session_repository_impl";
 import { CheckValidSessionUsecase } from "./../usecases/check_valid_session_usecase";
 import { LocalFileStorageRepository } from "../infrastructure/repositories/local_file_storage_repository_impl";
-import { DRIVE_DIR } from "../domain/constants/file_names";
 import { LocalDriveControllRepositoryImpl } from "../infrastructure/repositories/local_drive_controll_repository_impl";
 import { GetDriveEntriesUsecase } from "../usecases/get_drive_entries_usecase";
 import { LocalDirectoryRepositoryImpl } from "../infrastructure/repositories/local_directory_repository_impl";
 import { UploadFilesUsecase } from "../usecases/upload_files_usecase";
 import { EnvConfigRepositoryImpl } from "../infrastructure/repositories/env_config_repository_impl";
+import { getDriveDir } from "../domain/constants/file_names";
 
 export type DiEnv = {
   Variables: {
@@ -26,8 +26,8 @@ export type DiEnv = {
 
 const userRepo = new SqliteUsersRepositoryImpl();
 const sessionRepo = new SqliteSessionRepositoryImpl();
-const fileRepo = new LocalFileStorageRepository(DRIVE_DIR);
-const dirRepo = new LocalDirectoryRepositoryImpl(DRIVE_DIR);
+const fileRepo = new LocalFileStorageRepository(getDriveDir());
+const dirRepo = new LocalDirectoryRepositoryImpl(getDriveDir());
 const driveRepo = new LocalDriveControllRepositoryImpl();
 const envRepo = new EnvConfigRepositoryImpl();
 

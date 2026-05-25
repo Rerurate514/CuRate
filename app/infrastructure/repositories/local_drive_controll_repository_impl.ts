@@ -6,7 +6,7 @@ import { IDriveControllRepository } from "../../domain/repositories/i_drive_cont
 import { DirectoryDataEntity } from "../../domain/entities/directory_data.entity";
 import { FileDataEntity } from "../../domain/entities/file_data.entity";
 import { TargetEntries } from "./../../domain/vo/target_entries";
-import { DRIVE_DIR } from "../../domain/constants/file_names";
+import { getDriveDir } from "../../domain/constants/file_names";
 import { mkdir } from "node:fs/promises";
 
 export class LocalDriveControllRepositoryImpl
@@ -49,7 +49,7 @@ export class LocalDriveControllRepositoryImpl
 
   async existsDriveDir(): Promise<Result<boolean>> {
     try {
-      const stats = await stat(DRIVE_DIR);
+      const stats = await stat(getDriveDir());
       return new Success(stats.isDirectory());
     } catch (e: any) {
       if (e?.code === "ENOENT") {
@@ -61,7 +61,7 @@ export class LocalDriveControllRepositoryImpl
 
   async createDriveDir(): Promise<Result<void>> {
     try {
-      await mkdir(DRIVE_DIR, { recursive: true });
+      await mkdir(getDriveDir(), { recursive: true });
       return new Success();
     } catch (e: any) {
       return new Failure(e);
