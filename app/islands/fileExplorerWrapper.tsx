@@ -58,7 +58,7 @@ export default function FileExplorerWrapper({ initialEntries }: Props) {
     await fetch(`/api/drive/delete`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ path: menu.item.path }),
+      body: JSON.stringify({ targetPath: menu.item.path }),
     });
     setMenu(null);
     window.dispatchEvent(new CustomEvent("upload-success"));
