@@ -1,5 +1,4 @@
-import { Stats } from "node:fs";
-import { BunFile } from "bun";
+import type { BunFile } from "bun";
 
 export class FileDataEntity {
   private constructor(
@@ -31,22 +30,22 @@ export class FileDataEntity {
     );
   }
 
-  static createFromFs(params: {
+  static createFromBunFile(params: {
     name: string;
     path: string;
-    stats: Stats;
     bunFile: BunFile;
   }) {
     const mimeType = params.bunFile.type || "application/octet-stream";
+    const modifiedAt = new Date(params.bunFile.lastModified ?? Date.now());
 
     return new FileDataEntity(
       crypto.randomUUID(),
       params.name,
       params.path,
-      params.stats.size,
+      params.bunFile.size,
       mimeType,
-      params.stats.birthtime,
-      params.stats.mtime,
+      modifiedAt,
+      modifiedAt,
     );
   }
 }

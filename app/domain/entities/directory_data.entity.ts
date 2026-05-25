@@ -29,7 +29,6 @@ export class DirectoryDataEntity {
     name: string;
     path: string;
     stats: Stats;
-    files?: FileDataEntity[];
   }) {
     return new DirectoryDataEntity(
       crypto.randomUUID(),

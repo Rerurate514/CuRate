@@ -23,9 +23,8 @@ export class LocalDriveControllRepositoryImpl
 
       for (const entry of entries) {
         const path = join(targetPath, entry.name);
-        const stats = await stat(targetPath);
-
         if (entry.isDirectory()) {
+          const stats = await stat(targetPath);
           const dir = DirectoryDataEntity.createFromFs({
             name: entry.name,
             path: path,
@@ -33,10 +32,9 @@ export class LocalDriveControllRepositoryImpl
           });
           list.directories.push(dir);
         } else {
-          const file = FileDataEntity.createFromFs({
+          const file = FileDataEntity.createFromBunFile({
             name: entry.name,
             path: path,
-            stats: stats,
             bunFile: Bun.file(path),
           });
           list.files.push(file);
