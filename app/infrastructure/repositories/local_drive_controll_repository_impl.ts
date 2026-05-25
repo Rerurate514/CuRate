@@ -1,7 +1,6 @@
 import { readdir } from "node:fs/promises";
-import { join, parse } from "node:path";
+import { join } from "node:path";
 import { stat } from "node:fs/promises";
-import { platform, tmpdir } from "node:os";
 import { Failure, Result, Success } from "../../core/utils/result";
 import { IDriveControllRepository } from "../../domain/repositories/i_drive_controll_repository";
 import { DirectoryDataEntity } from "../../domain/entities/directory_data.entity";
@@ -64,23 +63,6 @@ export class LocalDriveControllRepositoryImpl
     try {
       await mkdir(DRIVE_DIR, { recursive: true });
       return new Success();
-    } catch (e: any) {
-      return new Failure(e);
-    }
-  }
-
-  resolveDrivePath(): Result<string> {
-    try {
-      if (process.env.DRIVE_PATH) {
-        return new Success(process.env.DRIVE_PATH);
-      }
-
-      if (platform() === "win32") {
-        const root = parse(tmpdir()).root;
-        return new Success(root || "C:\\");
-      }
-
-      return new Success("/");
     } catch (e: any) {
       return new Failure(e);
     }
