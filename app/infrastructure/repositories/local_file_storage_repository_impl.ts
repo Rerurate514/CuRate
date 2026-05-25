@@ -36,9 +36,12 @@ export class LocalFileStorageRepository implements IFileStorageRepository {
     }
   }
 
-  async delete(filePath: string): Promise<Result<void>> {
+  async delete(
+    filePath: string, 
+    { useBaseDir = true }: { useBaseDir?: boolean } = {}
+  ): Promise<Result<void>> {
     try {
-      const fullPath = path.join(this.basePath, filePath);
+      const fullPath = useBaseDir ? path.join(this.basePath, filePath) : filePath;
       const file = Bun.file(fullPath);
       const isExist = await file.exists();
 
