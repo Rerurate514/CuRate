@@ -1,8 +1,11 @@
+import z from "zod";
 import { formatBytes, formatDate } from "../../core/utils/formatter";
-import { TargetEntries } from "../../domain/vo/target_entries";
+import { DriveEntriesSchema } from "../../routes/api/drive/entries";
+
+type Entries = NonNullable<z.infer<typeof DriveEntriesSchema>["entries"]>;
 
 type Props = {
-  entries: TargetEntries;
+  entries: Entries;
 };
 
 export const FileExplorer = ({ entries }: Props) => {

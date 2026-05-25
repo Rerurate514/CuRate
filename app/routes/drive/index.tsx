@@ -6,6 +6,7 @@ import { zValidator } from "@hono/zod-validator";
 import z from "zod";
 import { DRIVE_DIR } from "../../domain/constants/file_names";
 import FilePicker from "../../islands/fpicker";
+import FileExplorerWrapper from "../../islands/file_explorer_wrapper";
 
 const multiUploadSchema = z.object({
   file: z
@@ -36,7 +37,7 @@ export const GET = createRoute(diMiddleware, async (c) => {
   return c.render(
     <div>
       <FilePicker path="/drive" />
-      <FileExplorer entries={result.value} />
+      <FileExplorerWrapper initialEntries={result.value} />
     </div>,
   );
 });
@@ -88,7 +89,7 @@ export const POST = createRoute(
     return c.render(
       <div>
         <FilePicker path="/drive" />
-        <FileExplorer entries={entriesResult.value} />
+        <FileExplorerWrapper initialEntries={entriesResult.value} />
       </div>,
     );
   },
