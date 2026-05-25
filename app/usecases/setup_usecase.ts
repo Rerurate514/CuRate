@@ -21,7 +21,7 @@ export class SetupUsecase {
       return new Failure(userCreateResult.error);
     }
 
-    const resolveEnvResult = this.envRepo.resolveDrivePath();
+    const resolveEnvResult = await this.envRepo.saveDrivePath();
     if(!resolveEnvResult.success) {
       return new Failure(resolveEnvResult.error);
     }
