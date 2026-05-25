@@ -1,1 +1,1 @@
-export class FailedToReadFileError extends Error { }
+export class FailedToReadFileError extends Error {}

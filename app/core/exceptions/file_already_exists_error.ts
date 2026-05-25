@@ -1,1 +1,1 @@
-export class FileAlreadyExistsError extends Error { }
+export class FileAlreadyExistsError extends Error {}

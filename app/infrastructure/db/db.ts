@@ -1,7 +1,7 @@
-import { Database } from 'bun:sqlite'
-import { DB_FILE_NAME } from '../../domain/constants/file_names'
+import { Database } from "bun:sqlite";
+import { DB_FILE_NAME } from "../../domain/constants/file_names";
 
-const db = new Database(DB_FILE_NAME)
+const db = new Database(DB_FILE_NAME);
 
 db.run(`
     CREATE TABLE IF NOT EXISTS users (
@@ -17,6 +17,6 @@ db.run(`
         user_id TEXT NOT NULL,
         expires_at INTEGER NOT NULL
     );
-`)
+`);
 
-export { db }
+export { db };

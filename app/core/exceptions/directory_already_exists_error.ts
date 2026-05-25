@@ -1,1 +1,1 @@
-export class DirectoryAlreadyExistsError extends Error { }
+export class DirectoryAlreadyExistsError extends Error {}

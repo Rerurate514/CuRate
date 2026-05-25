@@ -1,1 +1,1 @@
-export class FailedToDeleteFileError extends Error { }
+export class FailedToDeleteFileError extends Error {}
