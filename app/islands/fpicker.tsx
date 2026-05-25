@@ -25,7 +25,9 @@ export default function FilePicker({ path }: Props) {
         setStatus("アップロード成功！");
         setSelectedFileNames([]);
         form.reset();
-        window.location.reload();
+        
+        const event = new CustomEvent("upload-success");
+        window.dispatchEvent(event);
       } else {
         setStatus("アップロード失敗しました。");
       }
