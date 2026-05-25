@@ -16,7 +16,7 @@ export default function FilePicker({ path }: Props) {
 
     try {
       const response = await fetch(path, {
-        method: "POST",
+        method: "post",
         body: formData,
       });
 
@@ -32,7 +32,12 @@ export default function FilePicker({ path }: Props) {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <form 
+        action={path}
+        method="post"
+        enctype="multipart/form-data"
+        onSubmit={handleSubmit}
+      >
         <label htmlFor="file-input">ファイルを選択</label>
         <input id="file-input" name="file" type="file" multiple />
         <button type="submit">送信</button>
