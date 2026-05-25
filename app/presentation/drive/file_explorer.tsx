@@ -1,14 +1,16 @@
 import z from "zod";
 import { formatBytes, formatDate } from "../../core/utils/formatter";
 import { DriveEntriesSchema } from "../../domain/schemas/drive_entries.schema";
+import { MenuItem } from "../types/memu_item";
 
 type Entries = NonNullable<z.infer<typeof DriveEntriesSchema>["entries"]>;
 
 type Props = {
   entries: Entries;
+  onContextMenu?: (e: MouseEvent, item: MenuItem) => void;
 };
 
-export const FileExplorer = ({ entries }: Props) => {
+export const FileExplorer = ({ entries, onContextMenu }: Props) => {
   const isEmpty =
     entries.directories.length === 0 && entries.files.length === 0;
 
@@ -52,7 +54,10 @@ export const FileExplorer = ({ entries }: Props) => {
           ))}
 
           {entries.files.map((file) => (
-            <tr class="hover:bg-slate-50/80 transition-colors duration-150 cursor-pointer">
+            <tr
+              class="hover:bg-slate-50/80 transition-colors duration-150 cursor-pointer"
+              onContextMenu={(e: any) => onContextMenu?.(e, { type: "file", id: file.id, name: file.name, path: file.path })}
+            >
               <td class="px-4 py-3 text-center text-base">📄</td>
               <td class="px-4 py-3 text-slate-900 truncate max-w-xs md:max-w-md">
                 {file.name}
