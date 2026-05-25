@@ -6,8 +6,8 @@ export const formatBytes = (bytes: number): string => {
   return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i];
 };
 
-export const formatDate = (date: Date): string => {
-  return date.toLocaleDateString("ja-JP", {
+export const formatDate = (date: Date | string) => {
+  return new Date(date).toLocaleString("ja-JP", {
     year: "numeric",
     month: "2-digit",
     day: "2-digit",
