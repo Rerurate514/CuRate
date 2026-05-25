@@ -10,6 +10,7 @@ import { DRIVE_DIR } from "../domain/constants/file_names";
 import { LocalDriveControllRepositoryImpl } from "../infrastructure/repositories/local_drive_controll_repository_impl";
 import { GetDriveEntriesUsecase } from "../usecases/get_drive_entries_usecase";
 import { LocalDirectoryRepositoryImpl } from "../infrastructure/repositories/local_directory_repository_impl";
+import { UploadFilesUsecase } from "../usecases/upload_files_usecase";
 
 export type DiEnv = {
   Variables: {
@@ -18,6 +19,7 @@ export type DiEnv = {
     loginUsecase: LoginUsecase;
     checkValidSessionUsecase: CheckValidSessionUsecase;
     getDriveEntriesUsecase: GetDriveEntriesUsecase;
+    uploadFilesUsecase: UploadFilesUsecase
   };
 };
 
@@ -32,6 +34,7 @@ const checkInitializeUsecase = new CheckInitializeUsecase(userRepo);
 const loginUsecase = new LoginUsecase(userRepo, sessionRepo);
 const checkValidSessionUsecase = new CheckValidSessionUsecase(sessionRepo);
 const getDriveEntriesUsecase = new GetDriveEntriesUsecase(driveRepo);
+const uploadFilesUsecase = new UploadFilesUsecase(fileRepo);
 
 export const diMiddleware = createMiddleware<DiEnv>(async (c, next) => {
   c.set("setupUsecase", setupUsecase);
@@ -39,6 +42,7 @@ export const diMiddleware = createMiddleware<DiEnv>(async (c, next) => {
   c.set("loginUsecase", loginUsecase);
   c.set("checkValidSessionUsecase", checkValidSessionUsecase);
   c.set("getDriveEntriesUsecase", getDriveEntriesUsecase);
+  c.set("uploadFilesUsecase", uploadFilesUsecase);
 
   await next();
 });
