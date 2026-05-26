@@ -31,13 +31,13 @@ export default function FileExplorerWrapper({ initialEntries }: Props) {
         }
       }
     };
-    window.addEventListener("upload-success", handleUploadSuccess);
+    window.addEventListener("reload-explorer", handleUploadSuccess);
 
     const handleClick = () => setMenu(null);
     window.addEventListener("click", handleClick);
 
     return () => {
-      window.removeEventListener("upload-success", handleUploadSuccess);
+      window.removeEventListener("reload-explorer", handleUploadSuccess);
       window.removeEventListener("click", handleClick);
     };
   }, []);
@@ -61,7 +61,7 @@ export default function FileExplorerWrapper({ initialEntries }: Props) {
       body: JSON.stringify({ targetPath: menu.item.path }),
     });
     setMenu(null);
-    window.dispatchEvent(new CustomEvent("upload-success"));
+    window.dispatchEvent(new CustomEvent("reload-explorer"));
   };
 
   return (
