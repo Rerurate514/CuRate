@@ -33,7 +33,7 @@ export const CreateFolderButton = ({ currentPath }: Props) => {
         <div className="bg-white p-6 rounded-lg shadow-xl w-full max-w-sm border border-gray-200">
           <h3 className="text-lg font-bold text-gray-900 mb-4">新規フォルダ作成</h3>
           
-          <form method="post" action="/api/folders">
+          <form method="post" action="/api/drive/create-dir">
             <input type="hidden" name="currentPath" value={currentPath} />
             
             <input
