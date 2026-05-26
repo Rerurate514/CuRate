@@ -7,8 +7,7 @@ export class DeleteFileUsecase {
   constructor(private readonly fileRepo: IFileStorageRepository) {}
 
   async execute(targetPath: string): Promise<Result<void>> {
-    const fullPath = join(DRIVE_DIR, targetPath);
-    const deleteResult = await this.fileRepo.delete(fullPath);
+    const deleteResult = await this.fileRepo.delete(targetPath);
     if (!deleteResult.success) return new Failure(deleteResult.error);
 
     return new Success();
