@@ -7,9 +7,9 @@ import { MenuItem } from "../presentation/types/memu_item";
 type Entries = NonNullable<z.infer<typeof DriveEntriesSchema>["entries"]>;
 
 type MenuState = {
-  x: number,
-  y: number,
-  item: MenuItem
+  x: number;
+  y: number;
+  item: MenuItem;
 } | null;
 
 type Props = {
@@ -45,7 +45,7 @@ export default function FileExplorerWrapper({ initialEntries }: Props) {
   const handleContextMenu = (e: MouseEvent, item: MenuItem) => {
     e.preventDefault();
     setMenu({ x: e.clientX, y: e.clientY, item });
-  }
+  };
 
   const handleDownload = () => {
     if (!menu) return;

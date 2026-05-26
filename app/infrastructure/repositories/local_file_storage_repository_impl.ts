@@ -1,7 +1,10 @@
 import * as path from "node:path";
 import { mkdir } from "node:fs/promises";
 import { Failure, Result, Success } from "../../core/utils/result";
-import { IFileStorageRepository, FileStorageOptions } from "../../domain/repositories/i_file_storage_repository";
+import {
+  IFileStorageRepository,
+  FileStorageOptions,
+} from "../../domain/repositories/i_file_storage_repository";
 import { FailedToReadFileError } from "../../core/exceptions/failed_to_read_file_error";
 
 export class LocalFileStorageRepository implements IFileStorageRepository {
@@ -14,7 +17,7 @@ export class LocalFileStorageRepository implements IFileStorageRepository {
   async save(
     filePath: string,
     data: Buffer | string,
-    { useBaseDir = true }: FileStorageOptions = {}
+    { useBaseDir = true }: FileStorageOptions = {},
   ): Promise<Result<void>> {
     try {
       const fullPath = this.resolvePath(filePath, useBaseDir);
@@ -31,7 +34,7 @@ export class LocalFileStorageRepository implements IFileStorageRepository {
 
   async read(
     filePath: string,
-    { useBaseDir = true }: FileStorageOptions = {}
+    { useBaseDir = true }: FileStorageOptions = {},
   ): Promise<Result<Buffer>> {
     try {
       const fullPath = this.resolvePath(filePath, useBaseDir);
@@ -48,8 +51,8 @@ export class LocalFileStorageRepository implements IFileStorageRepository {
   }
 
   async delete(
-    filePath: string, 
-    { useBaseDir = true }: FileStorageOptions = {}
+    filePath: string,
+    { useBaseDir = true }: FileStorageOptions = {},
   ): Promise<Result<void>> {
     try {
       const fullPath = this.resolvePath(filePath, useBaseDir);
@@ -67,7 +70,7 @@ export class LocalFileStorageRepository implements IFileStorageRepository {
 
   async exists(
     filePath: string,
-    { useBaseDir = true }: FileStorageOptions = {}
+    { useBaseDir = true }: FileStorageOptions = {},
   ): Promise<Result<boolean>> {
     try {
       const fullPath = this.resolvePath(filePath, useBaseDir);
