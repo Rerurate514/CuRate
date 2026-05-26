@@ -3,9 +3,9 @@ import { diMiddleware } from "../../middlewares/_di_middleware";
 import { ErrorMessage } from "../../presentation/common/error_message";
 import { zValidator } from "@hono/zod-validator";
 import { DRIVE_DIR } from "../../domain/constants/file_names";
-import FilePicker from "../../islands/fpicker";
 import FileExplorerWrapper from "../../islands/fileExplorerWrapper";
 import { multiUploadSchema } from "../../domain/schemas/multi_upload.schema";
+import DriveHeader from "../../presentation/drive/header";
 
 export const GET = createRoute(diMiddleware, async (c) => {
   const usecase = c.get("getDriveEntriesUsecase");
@@ -24,7 +24,7 @@ export const GET = createRoute(diMiddleware, async (c) => {
 
   return c.render(
     <div>
-      <FilePicker path="/drive" />
+      <DriveHeader path="/drive" />
       <FileExplorerWrapper initialEntries={result.value} />
     </div>,
   );
@@ -76,7 +76,7 @@ export const POST = createRoute(
 
     return c.render(
       <div>
-        <FilePicker path="/drive" />
+        <DriveHeader path="/drive" />
         <FileExplorerWrapper initialEntries={entriesResult.value} />
       </div>,
     );
