@@ -2,7 +2,6 @@ import { createRoute } from "honox/factory";
 import { diMiddleware } from "../../middlewares/_di_middleware";
 import { ErrorMessage } from "../../presentation/common/error_message";
 import { zValidator } from "@hono/zod-validator";
-import z from "zod";
 import { DRIVE_DIR } from "../../domain/constants/file_names";
 import FilePicker from "../../islands/fpicker";
 import FileExplorerWrapper from "../../islands/fileExplorerWrapper";
