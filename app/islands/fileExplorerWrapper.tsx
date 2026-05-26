@@ -47,7 +47,7 @@ export default function FileExplorerWrapper({ initialEntries }: Props) {
     setMenu({ x: e.clientX, y: e.clientY, item });
   };
 
-  //TODO:フェッチ処理をusecaseとrepoに委譲
+  //TODO: RPC化
   const handleDownload = () => {
     if (!menu) return;
     window.location.href = `/api/drive/download?path=${encodeURIComponent(menu.item.path)}`;
