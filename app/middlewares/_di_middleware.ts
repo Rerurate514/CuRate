@@ -27,8 +27,8 @@ export type DiEnv = {
 
 const userRepo = new SqliteUsersRepositoryImpl();
 const sessionRepo = new SqliteSessionRepositoryImpl();
-const fileRepo = new LocalFileStorageRepository(DRIVE_DIR);
-const dirRepo = new LocalDirectoryRepositoryImpl(DRIVE_DIR);
+const fileRepo = new LocalFileStorageRepository();
+const dirRepo = new LocalDirectoryRepositoryImpl();
 const driveRepo = new LocalDriveControllRepositoryImpl();
 
 const setupUsecase = new SetupUsecase(userRepo);

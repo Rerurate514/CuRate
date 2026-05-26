@@ -1,5 +1,6 @@
 import { NoFilesProvidedError } from "../core/exceptions/no_files_provided_error";
 import { Failure, Result, Success } from "../core/utils/result";
+import { DRIVE_DIR } from "../domain/constants/file_names";
 import { IFileStorageRepository } from "../domain/repositories/i_file_storage_repository";
 import path from "node:path";
 
@@ -13,7 +14,7 @@ export class UploadFilesUsecase {
       }
 
       for (const file of files) {
-        const fileFullPath = path.join(dirPath, file.name);
+        const fileFullPath = path.join(DRIVE_DIR, dirPath, file.name);
 
         const arrayBuffer = await file.arrayBuffer();
         const buffer = Buffer.from(arrayBuffer);

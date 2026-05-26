@@ -1,15 +1,13 @@
-import * as path from "node:path";
 import { mkdir, rm, stat } from "node:fs/promises";
 import { ILocalDirectoryRepository } from "../../domain/repositories/i_local_directory_repository";
 import { Failure, Result, Success } from "../../core/utils/result";
 
 export class LocalDirectoryRepositoryImpl implements ILocalDirectoryRepository {
-  constructor(private readonly basePath: string) {}
+  constructor() {}
 
   async create(dirPath: string): Promise<Result<void>> {
     try {
-      const fullPath = path.join(this.basePath, dirPath);
-      await mkdir(fullPath, { recursive: true });
+      await mkdir(dirPath, { recursive: true });
       return new Success();
     } catch (e: any) {
       return new Failure(e);
@@ -18,8 +16,7 @@ export class LocalDirectoryRepositoryImpl implements ILocalDirectoryRepository {
 
   async delete(dirPath: string): Promise<Result<void>> {
     try {
-      const fullPath = path.join(this.basePath, dirPath);
-      await rm(fullPath, { recursive: true, force: true });
+      await rm(dirPath, { recursive: true, force: true });
       return new Success();
     } catch (e: any) {
       return new Failure(e);
@@ -28,8 +25,7 @@ export class LocalDirectoryRepositoryImpl implements ILocalDirectoryRepository {
 
   async exists(dirPath: string): Promise<Result<boolean>> {
     try {
-      const fullPath = path.join(this.basePath, dirPath);
-      const stats = await stat(fullPath);
+      const stats = await stat(dirPath);
       return new Success(stats.isDirectory());
     } catch (error) {
       if (error instanceof Error && (error as any).code === "ENOENT") {
