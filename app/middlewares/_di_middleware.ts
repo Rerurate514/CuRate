@@ -12,6 +12,7 @@ import { LocalDirectoryRepositoryImpl } from "../infrastructure/repositories/loc
 import { UploadFilesUsecase } from "../usecases/upload_files_usecase";
 import { DeleteFileUsecase } from "../usecases/delete_file_usecase";
 import { CreateDirectoryUsecase } from "../usecases/create_directory_usecase";
+import { DownloadFileUsecase } from "../usecases/download_file_usecase";
 
 export type DiEnv = {
   Variables: {
@@ -23,6 +24,7 @@ export type DiEnv = {
     uploadFilesUsecase: UploadFilesUsecase;
     deleteFileUsecase: DeleteFileUsecase;
     createDirectoryUsecase: CreateDirectoryUsecase;
+    downloadFileUsecase: DownloadFileUsecase;
   };
 };
 
@@ -40,6 +42,7 @@ const getDriveEntriesUsecase = new GetDriveEntriesUsecase(driveRepo);
 const uploadFilesUsecase = new UploadFilesUsecase(fileRepo);
 const deleteFileUsecase = new DeleteFileUsecase(fileRepo);
 const createDirectoryUsecase = new CreateDirectoryUsecase(dirRepo);
+const downloadFileUsecase = new DownloadFileUsecase(fileRepo);
 
 export const diMiddleware = createMiddleware<DiEnv>(async (c, next) => {
   c.set("setupUsecase", setupUsecase);
@@ -50,6 +53,7 @@ export const diMiddleware = createMiddleware<DiEnv>(async (c, next) => {
   c.set("uploadFilesUsecase", uploadFilesUsecase);
   c.set("deleteFileUsecase", deleteFileUsecase);
   c.set("createDirectoryUsecase", createDirectoryUsecase);
+  c.set("downloadFileUsecase", downloadFileUsecase);
 
   await next();
 });
