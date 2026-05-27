@@ -1,8 +1,8 @@
 import { mkdir, rm, stat } from "node:fs/promises";
-import { IDirectoryRepository } from "../../domain/repositories/i_directory_repository";
+import { IDirectoryStorageRepository } from "../../domain/repositories/i_directory_storage_repository";
 import { Failure, Result, Success } from "../../core/utils/result";
 
-export class LocalDirectoryRepositoryImpl implements IDirectoryRepository {
+export class LocalDirectoryRepositoryImpl implements IDirectoryStorageRepository {
   constructor() {}
 
   async create(dirPath: string): Promise<Result<void>> {
