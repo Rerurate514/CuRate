@@ -3,7 +3,6 @@ type Props = {
 };
 
 export const CreateFolderButton = ({ currentPath }: Props) => {
-  console.log(currentPath);
   return (
     <div className="inline-block text-left">
       <a
