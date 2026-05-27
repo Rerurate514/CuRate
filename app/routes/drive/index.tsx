@@ -2,7 +2,7 @@ import { createRoute } from "honox/factory";
 import { diMiddleware } from "../../middlewares/_di_middleware";
 import { ErrorMessage } from "../../presentation/common/error_message";
 import { zValidator } from "@hono/zod-validator";
-import { DRIVE_DIR } from "../../domain/constants/file_names";
+import { BASE_DRIVE_NAME, DRIVE_DIR } from "../../domain/constants/file_names";
 import { multiUploadSchema } from "../../domain/schemas/multi_upload.schema";
 import { DrivePage } from "../../presentation/drive/drive_page";
 
@@ -16,14 +16,14 @@ export const GET = createRoute(diMiddleware, async (c) => {
         title="Failed to Load Directory"
         message="Something went wrong while retrieving the file list. Please try again."
         buttonText="Retry"
-        backTo="/drive"
+        backTo={`/${BASE_DRIVE_NAME}`}
       />,
     );
   }
 
   return c.render(
     <DrivePage
-      currentPath="/drive"
+      currentPath={`/${BASE_DRIVE_NAME}`}
       initialEntries={result.value}
     />
   );
@@ -38,7 +38,7 @@ export const POST = createRoute(
           message="No file has been selected, or the file format is invalid."
           buttonText="Back To Drive"
           e={result.error}
-          backTo="/drive"
+          backTo={`/${BASE_DRIVE_NAME}`}
           title="Upload Error"
         ></ErrorMessage>,
       );
@@ -55,7 +55,7 @@ export const POST = createRoute(
           title="Failed to Upload Files"
           message="Something went wrong while retrieving the file list. Please try again."
           buttonText="Back To Drive"
-          backTo="/drive"
+          backTo={`/${BASE_DRIVE_NAME}`}
         />,
       );
     }
@@ -68,14 +68,14 @@ export const POST = createRoute(
           title="Failed to Load Directory"
           message="Something went wrong while retrieving the file list. Please try again."
           buttonText="Retry"
-          backTo="/drive"
+          backTo={`/${BASE_DRIVE_NAME}`}
         />,
       );
     }
 
     return c.render(
       <DrivePage
-        currentPath="/drive"
+        currentPath={`/${BASE_DRIVE_NAME}`}
         initialEntries={entriesResult.value}
       ></DrivePage>
     );
