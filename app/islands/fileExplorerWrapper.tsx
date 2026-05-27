@@ -22,8 +22,8 @@ export default function FileExplorerWrapper({ initialEntries, currentPath }: Pro
   const [menu, setMenu] = useState<MenuState>(null);
 
   useEffect(() => {
-    const handleReloadExplorer = async () => {
-      const response = await fetch("/api/drive/entries");
+    const handleUploadSuccess = async () => {
+      const response = await fetch(`/api/drive/entries?path=${encodeURIComponent(currentPath)}`);
       if (response.ok) {
         const data = await response.json();
         const parsed = DriveEntriesSchema.safeParse(data);
@@ -32,13 +32,13 @@ export default function FileExplorerWrapper({ initialEntries, currentPath }: Pro
         }
       }
     };
-    window.addEventListener("reload-explorer", handleReloadExplorer);
+    window.addEventListener("reload-explorer", handleUploadSuccess);
 
     const handleClick = () => setMenu(null);
     window.addEventListener("click", handleClick);
 
     return () => {
-      window.removeEventListener("reload-explorer", handleReloadExplorer);
+      window.removeEventListener("reload-explorer", handleUploadSuccess);
       window.removeEventListener("click", handleClick);
     };
   }, []);
