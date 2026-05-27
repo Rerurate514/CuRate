@@ -31,9 +31,6 @@ export default function FileExplorerWrapper({ initialEntries, currentPath }: Pro
           setEntries(parsed.data.entries);
         }
       }
-
-      const event = new CustomEvent("reload-explorer");
-      window.dispatchEvent(event);
     };
     window.addEventListener("reload-explorer", handleReloadExplorer);
 
@@ -56,6 +53,8 @@ export default function FileExplorerWrapper({ initialEntries, currentPath }: Pro
     if (!menu) return;
     window.location.href = `/api/drive/download?path=${encodeURIComponent(menu.item.path)}`;
     setMenu(null);
+    const event = new CustomEvent("reload-explorer");
+    window.dispatchEvent(event);
   };
 
   const handleDelete = async () => {
