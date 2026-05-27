@@ -22,7 +22,7 @@ export default function FileExplorerWrapper({ initialEntries, currentPath }: Pro
   const [menu, setMenu] = useState<MenuState>(null);
 
   useEffect(() => {
-    const handleUploadSuccess = async () => {
+    const handleReloadExplorer = async () => {
       const response = await fetch("/api/drive/entries");
       if (response.ok) {
         const data = await response.json();
@@ -32,13 +32,13 @@ export default function FileExplorerWrapper({ initialEntries, currentPath }: Pro
         }
       }
     };
-    window.addEventListener("reload-explorer", handleUploadSuccess);
+    window.addEventListener("reload-explorer", handleReloadExplorer);
 
     const handleClick = () => setMenu(null);
     window.addEventListener("click", handleClick);
 
     return () => {
-      window.removeEventListener("reload-explorer", handleUploadSuccess);
+      window.removeEventListener("reload-explorer", handleReloadExplorer);
       window.removeEventListener("click", handleClick);
     };
   }, []);
