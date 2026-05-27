@@ -57,7 +57,7 @@ export const POST = createRoute(
     const { file: files } = c.req.valid("form");
 
     const filesUploadUsecase = c.get("uploadFilesUsecase");
-    const uploadResult = await filesUploadUsecase.execute(`${path}`, files);
+    const uploadResult = await filesUploadUsecase.execute(`${targetPath}`, files);
     if (!uploadResult.success) {
       return c.render(
         <ErrorMessage
