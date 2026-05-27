@@ -2,17 +2,24 @@ import z from "zod";
 import { formatBytes, formatDate } from "../../core/utils/formatter";
 import { DriveEntriesSchema } from "../../domain/schemas/drive_entries.schema";
 import { MenuItem } from "../types/memu_item";
+import { BASE_DRIVE_DIR, BASE_DRIVE_NAME, DRIVE_DIR } from "../../domain/constants/file_names";
 
 type Entries = NonNullable<z.infer<typeof DriveEntriesSchema>["entries"]>;
 
 type Props = {
   entries: Entries;
+  currentPath?: string;
   onContextMenu?: (e: MouseEvent, item: MenuItem) => void;
 };
 
-export const FileExplorer = ({ entries, onContextMenu }: Props) => {
+export const FileExplorer = ({ entries, currentPath = "", onContextMenu }: Props) => {
   const isEmpty =
     entries.directories.length === 0 && entries.files.length === 0;
+
+  const getTargetHref = (dirName: string) => {
+    const base = currentPath.endsWith("/") ? currentPath : `${currentPath}/`;
+    return `${BASE_DRIVE_NAME}${base}${dirName}`;
+  };
 
   return (
     <div class="w-full overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm">
@@ -38,10 +45,22 @@ export const FileExplorer = ({ entries, onContextMenu }: Props) => {
         </thead>
         <tbody class="divide-y divide-slate-100">
           {entries.directories.map((dir) => (
-            <tr class="hover:bg-slate-50/80 transition-colors duration-150 group cursor-pointer">
+            <tr 
+              class="hover:bg-slate-50/80 transition-colors duration-150 group cursor-pointer"
+              onContextMenu={(e: any) =>
+                onContextMenu?.(e, {
+                  type: "directory",
+                  id: dir.id,
+                  name: dir.name,
+                  path: dir.path,
+                })
+              }
+            >
               <td class="px-4 py-3 text-center text-base">📁</td>
               <td class="px-4 py-3 font-medium text-blue-600 group-hover:text-blue-700 truncate max-w-xs md:max-w-md">
-                {dir.name}
+                <a href={getTargetHref(dir.name)} class="block w-full">
+                  {dir.name}
+                </a>
               </td>
               <td class="px-4 py-3 text-slate-400">--</td>
               <td class="px-4 py-3 text-xs text-slate-500 whitespace-nowrap">
