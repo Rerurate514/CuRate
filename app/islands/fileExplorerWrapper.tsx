@@ -14,9 +14,10 @@ type MenuState = {
 
 type Props = {
   initialEntries: Entries;
+  currentPath: string;
 };
 
-export default function FileExplorerWrapper({ initialEntries }: Props) {
+export default function FileExplorerWrapper({ initialEntries, currentPath }: Props) {
   const [entries, setEntries] = useState<Entries>(initialEntries);
   const [menu, setMenu] = useState<MenuState>(null);
 
@@ -67,7 +68,11 @@ export default function FileExplorerWrapper({ initialEntries }: Props) {
 
   return (
     <div>
-      <FileExplorer entries={entries} onContextMenu={handleContextMenu} />
+      <FileExplorer 
+      entries={entries} 
+      onContextMenu={handleContextMenu} 
+      currentPath={currentPath}
+      />
 
       {menu && (
         <div

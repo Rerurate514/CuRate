@@ -14,7 +14,7 @@ export const DrivePage = ({ currentPath, initialEntries }: Props) => {
     return (
         <div>
             <DriveHeader path={currentPath} />
-            <FileExplorerWrapper initialEntries={initialEntries} />
+            <FileExplorerWrapper initialEntries={initialEntries} currentPath={currentPath}/>
         </div>
     );
 }

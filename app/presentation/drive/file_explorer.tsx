@@ -8,17 +8,17 @@ type Entries = NonNullable<z.infer<typeof DriveEntriesSchema>["entries"]>;
 
 type Props = {
   entries: Entries;
-  currentPath?: string;
+  currentPath: string;
   onContextMenu?: (e: MouseEvent, item: MenuItem) => void;
 };
 
-export const FileExplorer = ({ entries, currentPath = "", onContextMenu }: Props) => {
+export const FileExplorer = ({ entries, currentPath, onContextMenu }: Props) => {
   const isEmpty =
     entries.directories.length === 0 && entries.files.length === 0;
 
   const getTargetHref = (dirName: string) => {
     const base = currentPath.endsWith("/") ? currentPath : `${currentPath}/`;
-    return `${BASE_DRIVE_NAME}${base}${dirName}`;
+    return `${base}${dirName}`;
   };
 
   return (
