@@ -2,7 +2,6 @@ import z from "zod";
 import { formatBytes, formatDate } from "../../core/utils/formatter";
 import { DriveEntriesSchema } from "../../domain/schemas/drive_entries.schema";
 import { MenuItem } from "../types/memu_item";
-import { BASE_DRIVE_DIR, BASE_DRIVE_NAME, DRIVE_DIR } from "../../domain/constants/file_names";
 
 type Entries = NonNullable<z.infer<typeof DriveEntriesSchema>["entries"]>;
 
