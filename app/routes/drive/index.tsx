@@ -3,9 +3,8 @@ import { diMiddleware } from "../../middlewares/_di_middleware";
 import { ErrorMessage } from "../../presentation/common/error_message";
 import { zValidator } from "@hono/zod-validator";
 import { DRIVE_DIR } from "../../domain/constants/file_names";
-import FileExplorerWrapper from "../../islands/fileExplorerWrapper";
 import { multiUploadSchema } from "../../domain/schemas/multi_upload.schema";
-import DriveHeader from "../../presentation/drive/header";
+import { DrivePage } from "../../presentation/drive/drive_page";
 
 export const GET = createRoute(diMiddleware, async (c) => {
   const usecase = c.get("getDriveEntriesUsecase");
@@ -23,10 +22,10 @@ export const GET = createRoute(diMiddleware, async (c) => {
   }
 
   return c.render(
-    <div>
-      <DriveHeader path="/drive" />
-      <FileExplorerWrapper initialEntries={result.value} />
-    </div>,
+    <DrivePage
+      currentPath="/drive"
+      initialEntries={result.value}
+    />
   );
 });
 
@@ -75,10 +74,10 @@ export const POST = createRoute(
     }
 
     return c.render(
-      <div>
-        <DriveHeader path="/drive" />
-        <FileExplorerWrapper initialEntries={entriesResult.value} />
-      </div>,
+      <DrivePage
+        currentPath="/drive"
+        initialEntries={entriesResult.value}
+      ></DrivePage>
     );
   },
 );
