@@ -1,3 +1,4 @@
+import { UserNotFoundError } from "../../core/exceptions/user_not_found_error";
 import { Failure, Result, Success } from "../../core/utils/result";
 import { UserEntity } from "../../domain/entities/user.entity";
 import { IDbUsersRepository } from "../../domain/repositories/i_db_users_repository";
