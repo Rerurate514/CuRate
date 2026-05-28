@@ -26,10 +26,7 @@ export const GET = createRoute(diMiddleware, async (c) => {
   }
 
   return c.render(
-    <DrivePage
-      currentPath={currentPath}
-      initialEntries={result.value}
-    />
+    <DrivePage currentPath={currentPath} initialEntries={result.value} />,
   );
 });
 
@@ -57,7 +54,10 @@ export const POST = createRoute(
     const { file: files } = c.req.valid("form");
 
     const filesUploadUsecase = c.get("uploadFilesUsecase");
-    const uploadResult = await filesUploadUsecase.execute(`${targetPath}`, files);
+    const uploadResult = await filesUploadUsecase.execute(
+      `${targetPath}`,
+      files,
+    );
     if (!uploadResult.success) {
       return c.render(
         <ErrorMessage
@@ -86,7 +86,7 @@ export const POST = createRoute(
       <DrivePage
         currentPath={currentPath}
         initialEntries={entriesResult.value}
-      ></DrivePage>
+      ></DrivePage>,
     );
   },
 );

@@ -104,7 +104,9 @@ export function FilePicker({ path }: FilePickerProps) {
         <button
           type="submit"
           className={`px-5 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg shadow-sm transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${
-            selectedFileNames.length === 0 ? "opacity-50 cursor-not-allowed" : ""
+            selectedFileNames.length === 0
+              ? "opacity-50 cursor-not-allowed"
+              : ""
           }`}
           disabled={selectedFileNames.length === 0}
         >

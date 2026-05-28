@@ -11,7 +11,11 @@ type Props = {
   onContextMenu?: (e: MouseEvent, item: MenuItem) => void;
 };
 
-export const FileExplorer = ({ entries, currentPath, onContextMenu }: Props) => {
+export const FileExplorer = ({
+  entries,
+  currentPath,
+  onContextMenu,
+}: Props) => {
   const isEmpty =
     entries.directories.length === 0 && entries.files.length === 0;
 
@@ -44,7 +48,7 @@ export const FileExplorer = ({ entries, currentPath, onContextMenu }: Props) => 
         </thead>
         <tbody class="divide-y divide-slate-100">
           {entries.directories.map((dir) => (
-            <tr 
+            <tr
               class="hover:bg-slate-50/80 transition-colors duration-150 group cursor-pointer"
               onContextMenu={(e: any) =>
                 onContextMenu?.(e, {

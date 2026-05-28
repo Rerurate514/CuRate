@@ -4,7 +4,7 @@ import { createRoute } from "honox/factory";
 
 export const GET = createRoute(diMiddleware, async (c) => {
   const path = c.req.query("path");
-  if(!path) {
+  if (!path) {
     return c.json({ success: false }, 400);
   }
 

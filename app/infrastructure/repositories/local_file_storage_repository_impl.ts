@@ -5,10 +5,7 @@ import { IFileStorageRepository } from "../../domain/repositories/i_file_storage
 import { FailedToReadFileError } from "../../core/exceptions/failed_to_read_file_error";
 
 export class LocalFileStorageRepository implements IFileStorageRepository {
-  async save(
-    filePath: string,
-    data: Buffer | string,
-  ): Promise<Result<void>> {
+  async save(filePath: string, data: Buffer | string): Promise<Result<void>> {
     try {
       const dirPath = path.dirname(filePath);
 

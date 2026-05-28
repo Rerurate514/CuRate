@@ -25,7 +25,7 @@ export const GET = createRoute(diMiddleware, async (c) => {
     <DrivePage
       currentPath={`/${BASE_DRIVE_NAME}`}
       initialEntries={result.value}
-    />
+    />,
   );
 });
 
@@ -77,7 +77,7 @@ export const POST = createRoute(
       <DrivePage
         currentPath={`/${BASE_DRIVE_NAME}`}
         initialEntries={entriesResult.value}
-      ></DrivePage>
+      ></DrivePage>,
     );
   },
 );
