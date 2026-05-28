@@ -14,15 +14,16 @@ type MenuState = {
 
 type Props = {
   initialEntries: Entries;
+  currentPath: string;
 };
 
-export default function FileExplorerWrapper({ initialEntries }: Props) {
+export default function FileExplorerWrapper({ initialEntries, currentPath }: Props) {
   const [entries, setEntries] = useState<Entries>(initialEntries);
   const [menu, setMenu] = useState<MenuState>(null);
 
   useEffect(() => {
     const handleUploadSuccess = async () => {
-      const response = await fetch("/api/drive/entries");
+      const response = await fetch(`/api/drive/entries?path=${currentPath}`);
       if (response.ok) {
         const data = await response.json();
         const parsed = DriveEntriesSchema.safeParse(data);
@@ -67,7 +68,11 @@ export default function FileExplorerWrapper({ initialEntries }: Props) {
 
   return (
     <div>
-      <FileExplorer entries={entries} onContextMenu={handleContextMenu} />
+      <FileExplorer 
+      entries={entries} 
+      onContextMenu={handleContextMenu} 
+      currentPath={currentPath}
+      />
 
       {menu && (
         <div

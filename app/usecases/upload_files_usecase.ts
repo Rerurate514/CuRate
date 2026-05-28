@@ -14,7 +14,7 @@ export class UploadFilesUsecase {
       }
 
       for (const file of files) {
-        const fileFullPath = path.join(DRIVE_DIR, dirPath, file.name);
+        const fileFullPath = path.join(dirPath, file.name);
 
         const arrayBuffer = await file.arrayBuffer();
         const buffer = Buffer.from(arrayBuffer);
