@@ -14,6 +14,8 @@ import { DeleteFileUsecase } from "../usecases/delete_file_usecase";
 import { CreateDirectoryUsecase } from "../usecases/create_directory_usecase";
 import { DownloadFileUsecase } from "../usecases/download_file_usecase";
 import { DeleteDirectoryUsecase } from "../usecases/delete_directory_usecase";
+import { FFlateArchiveRepositoryImpl } from "../infrastructure/repositories/fflate_archive_repository_impl";
+import { DownloadDirectoryUsecase } from "../usecases/download_directory_usecase";
 
 export type DiEnv = {
   Variables: {
@@ -27,6 +29,7 @@ export type DiEnv = {
     deleteDirectoryUsecase: DeleteDirectoryUsecase;
     createDirectoryUsecase: CreateDirectoryUsecase;
     downloadFileUsecase: DownloadFileUsecase;
+    downloadDirectoryUsecase: DownloadDirectoryUsecase;
   };
 };
 
@@ -35,6 +38,7 @@ const sessionRepo = new SqliteSessionRepositoryImpl();
 const fileRepo = new LocalFileStorageRepository();
 const dirRepo = new LocalDirectoryRepositoryImpl();
 const driveRepo = new LocalDriveControllRepositoryImpl();
+const archiveRepo = new FFlateArchiveRepositoryImpl();
 
 const setupUsecase = new SetupUsecase(userRepo);
 const checkInitializeUsecase = new CheckInitializeUsecase(userRepo);
@@ -46,6 +50,7 @@ const deleteFileUsecase = new DeleteFileUsecase(fileRepo);
 const deleteDirectoryUsecase = new DeleteDirectoryUsecase(dirRepo);
 const createDirectoryUsecase = new CreateDirectoryUsecase(dirRepo);
 const downloadFileUsecase = new DownloadFileUsecase(fileRepo);
+const downloadDirectoryUsecase = new DownloadDirectoryUsecase(archiveRepo);
 
 export const diMiddleware = createMiddleware<DiEnv>(async (c, next) => {
   c.set("setupUsecase", setupUsecase);
@@ -58,6 +63,7 @@ export const diMiddleware = createMiddleware<DiEnv>(async (c, next) => {
   c.set("createDirectoryUsecase", createDirectoryUsecase);
   c.set("downloadFileUsecase", downloadFileUsecase);
   c.set("deleteDirectoryUsecase", deleteDirectoryUsecase);
+  c.set("downloadDirectoryUsecase", downloadDirectoryUsecase);
 
   await next();
 });
