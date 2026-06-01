@@ -65,7 +65,7 @@ export default function FileExplorerWrapper({
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         targetPath: menu.item.path,
-        contentType: menu.item.type,
+        contentsType: menu.item.type,
       }),
     });
     setMenu(null);
