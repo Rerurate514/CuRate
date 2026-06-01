@@ -1,9 +1,9 @@
 import { zValidator } from "@hono/zod-validator";
 import { createRoute } from "honox/factory";
+import { setupSchema } from "../../domain/schemas/setup.schema";
 import { diMiddleware } from "../../middlewares/_di_middleware";
 import { EntryForm } from "../../presentation/common/entry_form";
 import { ErrorMessage } from "../../presentation/common/error_message";
-import { setupSchema } from "../../domain/schemas/setup.schema";
 
 export const GET = createRoute((c) => {
   return c.render(

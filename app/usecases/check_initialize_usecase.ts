@@ -1,5 +1,5 @@
-import { Result } from "../core/utils/result";
-import { IDbUsersRepository } from "../domain/repositories/i_db_users_repository";
+import type { Result } from "../core/utils/result";
+import type { IDbUsersRepository } from "../domain/repositories/i_db_users_repository";
 
 export class CheckInitializeUsecase {
   constructor(private readonly userRepo: IDbUsersRepository) {}

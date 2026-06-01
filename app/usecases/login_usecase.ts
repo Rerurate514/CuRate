@@ -1,10 +1,10 @@
 import { PasswordMismatchError } from "../core/exceptions/password_mismatch_error";
 import { UserNotFoundError } from "../core/exceptions/user_not_found_error";
-import { Failure, Result, Success } from "../core/utils/result";
+import { Failure, type Result, Success } from "../core/utils/result";
 import { EXPIRES_IN_SECONDS } from "../domain/constants/expires_in_seconds";
 import { SessionDataEntity } from "../domain/entities/session_data.entity";
-import { IDbSessionRepository } from "../domain/repositories/i_db_session_repository";
-import { IDbUsersRepository } from "../domain/repositories/i_db_users_repository";
+import type { IDbSessionRepository } from "../domain/repositories/i_db_session_repository";
+import type { IDbUsersRepository } from "../domain/repositories/i_db_users_repository";
 import { ExpiresAt } from "../domain/vo/expires_at";
 
 export class LoginUsecase {

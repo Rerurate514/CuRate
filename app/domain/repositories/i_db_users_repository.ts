@@ -1,5 +1,5 @@
-import { Result } from "../../core/utils/result";
-import { UserEntity } from "../entities/user.entity";
+import type { Result } from "../../core/utils/result";
+import type { UserEntity } from "../entities/user.entity";
 
 export interface IDbUsersRepository {
   add(user: UserEntity): Promise<Result<void>>;

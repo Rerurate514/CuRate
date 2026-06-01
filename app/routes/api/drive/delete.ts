@@ -1,8 +1,8 @@
-import { createRoute } from "honox/factory";
-import { diMiddleware } from "../../../middlewares/_di_middleware";
 import { zValidator } from "@hono/zod-validator";
+import { createRoute } from "honox/factory";
+import type { Result } from "../../../core/utils/result";
 import { deleteContentsSchema } from "../../../domain/schemas/delete_contents.schema";
-import { Result } from "../../../core/utils/result";
+import { diMiddleware } from "../../../middlewares/_di_middleware";
 
 export const DELETE = createRoute(
   diMiddleware,

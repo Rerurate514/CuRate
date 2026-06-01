@@ -1,4 +1,4 @@
-import { Result } from "../../core/utils/result";
+import type { Result } from "../../core/utils/result";
 
 export interface IDirectoryStorageRepository {
   create(dirPath: string): Promise<Result<void>>;

@@ -1,5 +1,5 @@
-import { Failure, Result } from "../core/utils/result";
-import { IArchiveRepository } from "../domain/repositories/i_archive_repository";
+import { Failure, type Result } from "../core/utils/result";
+import type { IArchiveRepository } from "../domain/repositories/i_archive_repository";
 
 export class DownloadDirectoryUsecase {
   constructor(private readonly archiveRepo: IArchiveRepository) {}

@@ -1,5 +1,5 @@
-import { Failure, Result, Success } from "../core/utils/result";
-import { IFileStorageRepository } from "../domain/repositories/i_file_storage_repository";
+import { Failure, type Result, Success } from "../core/utils/result";
+import type { IFileStorageRepository } from "../domain/repositories/i_file_storage_repository";
 
 export class DeleteFileUsecase {
   constructor(private readonly fileRepo: IFileStorageRepository) {}

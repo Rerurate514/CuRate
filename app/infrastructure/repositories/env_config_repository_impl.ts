@@ -1,7 +1,7 @@
-import { Success, Failure, Result } from "../../core/utils/result";
-import path from "node:path";
 import os from "node:os";
-import { IEnvConfigRepository } from "../../domain/repositories/i_env_config_repository";
+import path from "node:path";
+import { Failure, type Result, Success } from "../../core/utils/result";
+import type { IEnvConfigRepository } from "../../domain/repositories/i_env_config_repository";
 
 export class EnvConfigRepositoryImpl implements IEnvConfigRepository {
   async saveDrivePath(): Promise<Result<void>> {

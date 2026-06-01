@@ -1,5 +1,5 @@
-import { Failure, Result, Success } from "../core/utils/result";
-import { IDirectoryStorageRepository } from "../domain/repositories/i_directory_storage_repository";
+import { Failure, type Result, Success } from "../core/utils/result";
+import type { IDirectoryStorageRepository } from "../domain/repositories/i_directory_storage_repository";
 
 export class DeleteDirectoryUsecase {
   constructor(private readonly dirRepo: IDirectoryStorageRepository) {}

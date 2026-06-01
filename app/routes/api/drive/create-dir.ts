@@ -1,7 +1,7 @@
-import { createRoute } from "honox/factory";
-import { diMiddleware } from "../../../middlewares/_di_middleware";
 import { zValidator } from "@hono/zod-validator";
+import { createRoute } from "honox/factory";
 import { createDirSchema } from "../../../domain/schemas/create_dir.schema";
+import { diMiddleware } from "../../../middlewares/_di_middleware";
 
 export const POST = createRoute(
   diMiddleware,

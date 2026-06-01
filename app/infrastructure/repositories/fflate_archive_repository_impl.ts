@@ -1,9 +1,9 @@
-import { join } from "path";
 import { Glob } from "bun";
 import { Zip, ZipPassThrough } from "fflate";
-import { IArchiveRepository } from "../../domain/repositories/i_archive_repository";
-import { Failure, Result, Success } from "../../core/utils/result";
+import { join } from "path";
 import { NotExistsFilesInDirError } from "../../core/exceptions/not_exists_files_in_dir_error";
+import { Failure, type Result, Success } from "../../core/utils/result";
+import type { IArchiveRepository } from "../../domain/repositories/i_archive_repository";
 
 export class FFlateArchiveRepositoryImpl implements IArchiveRepository {
   async archiveDirectory(dirPath: string): Promise<Result<ReadableStream>> {

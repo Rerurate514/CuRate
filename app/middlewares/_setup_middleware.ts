@@ -1,6 +1,6 @@
 import { createMiddleware } from "hono/factory";
-import { DiEnv } from "./_di_middleware";
 import { BYPASS_PATHS } from "../domain/constants/bypass_paths";
+import type { DiEnv } from "./_di_middleware";
 
 export const setupMiddleware = createMiddleware<DiEnv>(async (c, next) => {
   const { pathname } = new URL(c.req.url);

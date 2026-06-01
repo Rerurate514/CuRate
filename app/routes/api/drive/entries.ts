@@ -1,5 +1,5 @@
-import { diMiddleware } from "../../../middlewares/_di_middleware";
 import { createRoute } from "honox/factory";
+import { diMiddleware } from "../../../middlewares/_di_middleware";
 
 export const GET = createRoute(diMiddleware, async (c) => {
   const path = c.req.query("path");

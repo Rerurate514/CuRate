@@ -1,8 +1,8 @@
-import * as path from "node:path";
 import { mkdir } from "node:fs/promises";
-import { Failure, Result, Success } from "../../core/utils/result";
-import { IFileStorageRepository } from "../../domain/repositories/i_file_storage_repository";
+import * as path from "node:path";
 import { FailedToReadFileError } from "../../core/exceptions/failed_to_read_file_error";
+import { Failure, type Result, Success } from "../../core/utils/result";
+import type { IFileStorageRepository } from "../../domain/repositories/i_file_storage_repository";
 
 export class LocalFileStorageRepository implements IFileStorageRepository {
   async save(filePath: string, data: Buffer | string): Promise<Result<void>> {
