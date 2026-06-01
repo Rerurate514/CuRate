@@ -17,7 +17,7 @@ export const GET = createRoute(diMiddleware, async (c) => {
 
   const stream = result.value!;
   const fileName = path.split("\\").slice(2).join("_") || "download";
-  
+
   return new Response(stream, {
     headers: {
       "Content-Type": "application/zip",
