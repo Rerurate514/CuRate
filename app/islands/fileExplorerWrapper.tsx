@@ -63,7 +63,10 @@ export default function FileExplorerWrapper({
     await fetch(`/api/drive/delete`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ targetPath: menu.item.path }),
+      body: JSON.stringify({ 
+        targetPath: menu.item.path,
+        contentType: menu.item.type
+      }),
     });
     setMenu(null);
     window.dispatchEvent(new CustomEvent("reload-explorer"));
