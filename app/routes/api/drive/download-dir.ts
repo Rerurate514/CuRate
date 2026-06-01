@@ -1,6 +1,5 @@
 import { createRoute } from "honox/factory";
 import { diMiddleware } from "../../../middlewares/_di_middleware";
-import { success } from "zod";
 
 export const GET = createRoute(diMiddleware, async (c) => {
     const path = c.req.query("path");
