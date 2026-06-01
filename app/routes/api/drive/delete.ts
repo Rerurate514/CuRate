@@ -13,10 +13,10 @@ export const DELETE = createRoute(
     const contentType = body.contentsType;
     let result: Result<void, any>;
 
-    if(contentType === 'file') {
+    if (contentType === "file") {
       const fileUsecase = c.get("deleteFileUsecase");
       result = await fileUsecase.execute(body.targetPath);
-    } else if(contentType === 'directory') {
+    } else if (contentType === "directory") {
       const dirUsecase = c.get("deleteDirectoryUsecase");
       result = await dirUsecase.execute(body.targetPath);
     } else {

@@ -63,9 +63,9 @@ export default function FileExplorerWrapper({
     await fetch(`/api/drive/delete`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ 
+      body: JSON.stringify({
         targetPath: menu.item.path,
-        contentType: menu.item.type
+        contentType: menu.item.type,
       }),
     });
     setMenu(null);
