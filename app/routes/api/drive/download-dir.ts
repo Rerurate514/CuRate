@@ -22,7 +22,7 @@ export const GET = createRoute(diMiddleware, async (c) => {
     return new Response(stream, {
         headers: {
             "Content-Type": "application/zip",
-            "Content-Disposition": `attachment; filename="${encodeURIComponent(fileName)}"`
+            "Content-Disposition": `attachment; filename="${encodeURIComponent(fileName)}.zip"`
         }
     });
 });
