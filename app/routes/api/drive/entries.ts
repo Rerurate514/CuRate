@@ -1,4 +1,3 @@
-import { join } from "node:path";
 import { diMiddleware } from "../../../middlewares/_di_middleware";
 import { createRoute } from "honox/factory";
 
