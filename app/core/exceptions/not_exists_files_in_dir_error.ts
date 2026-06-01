@@ -1,1 +1,1 @@
-export class NotExistsFilesInDirError extends Error { }
+export class NotExistsFilesInDirError extends Error {}

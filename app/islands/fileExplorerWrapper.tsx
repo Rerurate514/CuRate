@@ -54,12 +54,12 @@ export default function FileExplorerWrapper({
   //TODO: RPC化
   const handleDownload = () => {
     if (!menu) return;
-    if(menu.item.type === "file") {
+    if (menu.item.type === "file") {
       window.location.href = `/api/drive/download-file?path=${encodeURIComponent(menu.item.path)}`;
-    } else if(menu.item.type === "directory") {
+    } else if (menu.item.type === "directory") {
       window.location.href = `/api/drive/download-dir?path=${encodeURIComponent(menu.item.path)}`;
     }
-  
+
     setMenu(null);
   };
 

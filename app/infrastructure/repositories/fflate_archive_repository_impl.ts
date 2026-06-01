@@ -41,7 +41,9 @@ export class FFlateArchiveRepositoryImpl implements IArchiveRepository {
             const isDir = await fileContent.exists().then((exists) => !exists);
 
             if (isDir) {
-              const zipCell = new ZipPassThrough(file.endsWith("/") ? file : `${file}/`);
+              const zipCell = new ZipPassThrough(
+                file.endsWith("/") ? file : `${file}/`,
+              );
               zip.add(zipCell);
               zipCell.push(new Uint8Array(0), true);
             } else {
