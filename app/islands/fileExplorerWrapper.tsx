@@ -54,7 +54,7 @@ export default function FileExplorerWrapper({
   //TODO: RPC化
   const handleDownload = () => {
     if (!menu) return;
-    window.location.href = `/api/drive/download?path=${encodeURIComponent(menu.item.path)}`;
+    window.location.href = `/api/drive/download-file?path=${encodeURIComponent(menu.item.path)}`;
     setMenu(null);
   };
 
