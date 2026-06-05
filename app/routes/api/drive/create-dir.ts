@@ -12,8 +12,7 @@ export const POST = createRoute(
     const body = c.req.valid("form");
     
     const rawPath = path.join(CURATE_DIR, body.currentPath, body.folderName);
-    const normalizedPath = rawPath.replace(/\\drive\\/g, "/");
-    const targetPath = normalizedPath.split(path.sep).join("/");
+    const targetPath = rawPath.split(path.sep).join("/");
 
       console.log(targetPath)
 
