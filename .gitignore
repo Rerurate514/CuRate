@@ -35,4 +35,4 @@ lerna-debug.log*
 
 # app
 curate.db
-drive/**
+CuRate/**
