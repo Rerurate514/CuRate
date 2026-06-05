@@ -3,7 +3,7 @@ import { zValidator } from "@hono/zod-validator";
 import { createRoute } from "honox/factory";
 import { createDirSchema } from "../../../domain/schemas/create_dir.schema";
 import { diMiddleware } from "../../../middlewares/_di_middleware";
-import { DRIVE_DIR } from "../../../domain/constants/file_names";
+import { CURATE_DIR, DRIVE_DIR } from "../../../domain/constants/file_names";
 
 export const POST = createRoute(
   diMiddleware,
@@ -11,7 +11,7 @@ export const POST = createRoute(
   async (c) => {
     const body = c.req.valid("form");
     
-    const rawPath = path.join(DRIVE_DIR, body.currentPath, body.folderName);
+    const rawPath = path.join(CURATE_DIR, body.currentPath, body.folderName);
     const normalizedPath = rawPath.replace(/\\drive\\/g, "/");
     const targetPath = normalizedPath.split(path.sep).join("/");
 
