@@ -9,7 +9,7 @@ FROM base AS build
 COPY package.json bun.lockb* ./
 RUN bun install
 COPY . .
-RUN bun run setup && bun run build
+RUN bun run build
 
 FROM oven/bun:distroless AS runner
 WORKDIR /app
@@ -19,4 +19,4 @@ COPY --from=build /app/.env ./.env
 COPY package.json ./
 
 EXPOSE 3000
-CMD ["bun", "run", "dist/server.mjs"]
+CMD ["sh", "-c", "bun run setup && bun run dist/server.mjs"]
