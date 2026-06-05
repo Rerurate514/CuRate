@@ -13,6 +13,8 @@ export const POST = createRoute(
       .replaceAll("\\drive\\", "")
       .replaceAll("\\", "/");
 
+      console.log(targetPath)
+
     const usecase = c.get("createDirectoryUsecase");
     const result = await usecase.execute(targetPath);
 
