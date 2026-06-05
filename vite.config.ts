@@ -19,8 +19,12 @@ export default defineConfig(({ mode }) => {
   return {
     build: {
       ssr: true,
-      emptyOutDir: false, 
+      emptyOutDir: false,
       rolldownOptions: {
+        input: ['./app/server.ts'],
+        external: ['bun', 'fflate'],
+      },
+      rollupOptions: {
         input: ['./app/server.ts'],
         external: ['bun', 'fflate'],
       }
