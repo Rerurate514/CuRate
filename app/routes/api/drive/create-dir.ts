@@ -1,3 +1,4 @@
+import path from "node:path";
 import { zValidator } from "@hono/zod-validator";
 import { createRoute } from "honox/factory";
 import { createDirSchema } from "../../../domain/schemas/create_dir.schema";
@@ -9,9 +10,10 @@ export const POST = createRoute(
   zValidator("form", createDirSchema),
   async (c) => {
     const body = c.req.valid("form");
-    const targetPath = `${DRIVE_DIR}${body.currentPath}/${body.folderName}`
-      .replaceAll("\\drive\\", "")
-      .replaceAll("\\", "/");
+    
+    const rawPath = path.join(DRIVE_DIR, body.currentPath, body.folderName);
+    const normalizedPath = rawPath.replace(/\\drive\\/g, "/");
+    const targetPath = normalizedPath.split(path.sep).join("/");
 
       console.log(targetPath)
 
