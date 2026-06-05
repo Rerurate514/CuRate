@@ -1,4 +1,3 @@
-import os from "node:os";
 import path from "node:path";
 import { Failure, type Result, Success } from "../../core/utils/result";
 import type { IEnvConfigRepository } from "../../domain/repositories/i_env_config_repository";
