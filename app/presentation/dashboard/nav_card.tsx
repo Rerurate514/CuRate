@@ -4,8 +4,8 @@ type Props = {
   href: string;
   label: string;
   description: string;
-  icon: JSX.IntrinsicElements['a'];
-} & JSX.IntrinsicElements['a'];
+  icon: JSX.IntrinsicElements["a"];
+} & JSX.IntrinsicElements["a"];
 
 export const NavCard = ({ href, label, description, icon }: Props) => (
   <a

@@ -1,14 +1,14 @@
+import { serveStatic } from "hono/bun";
 import { showRoutes } from "hono/dev";
 import { createApp } from "honox/server";
 import { startSessionCleanup } from "./cleanup";
 import { SqliteSessionRepositoryImpl } from "./infrastructure/repositories/sqlite_session_repository_impl";
-import { serveStatic } from "hono/bun";
 
 const app = createApp();
 
 showRoutes(app);
 startSessionCleanup(new SqliteSessionRepositoryImpl());
 
-app.use("/static/*", serveStatic({ root: './dist' }))
+app.use("/static/*", serveStatic({ root: "./dist" }));
 
 export default app;

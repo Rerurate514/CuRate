@@ -7,4 +7,8 @@ export const CURATE_DIR = path.join(process.env.DRIVE_PATH!, BASE_CURATE_DIR);
 export const DB_FILE_NAME = "curate.db";
 export const BASE_DRIVE_NAME = "drive";
 export const BASE_DRIVE_DIR = `${BASE_DRIVE_NAME}/`;
-export const DRIVE_DIR = path.join(process.env.DRIVE_PATH!, BASE_CURATE_DIR, BASE_DRIVE_DIR);
+export const DRIVE_DIR = path.join(
+  process.env.DRIVE_PATH!,
+  BASE_CURATE_DIR,
+  BASE_DRIVE_DIR,
+);
