@@ -1,7 +1,5 @@
-import { join } from "node:path";
 import { DirectoryAlreadyExistsError } from "../core/exceptions/directory_already_exists_error";
 import { Failure, type Result } from "../core/utils/result";
-import { DRIVE_DIR } from "../domain/constants/file_names";
 import type { IDirectoryStorageRepository } from "../domain/repositories/i_directory_storage_repository";
 
 export class CreateDirectoryUsecase {
