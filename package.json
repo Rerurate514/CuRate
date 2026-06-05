@@ -12,6 +12,7 @@
   "private": true,
   "dependencies": {
     "@hono/zod-validator": "^0.8.0",
+    "fflate": "^0.8.3",
     "hono": "^4.12.19",
     "honox": "0.1.55",
     "zod": "^4.4.3"

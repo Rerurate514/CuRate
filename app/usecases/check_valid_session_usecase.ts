@@ -1,5 +1,5 @@
-import { Result, Success } from "../core/utils/result";
-import { IDbSessionRepository } from "../domain/repositories/i_db_session_repository";
+import { type Result, Success } from "../core/utils/result";
+import type { IDbSessionRepository } from "../domain/repositories/i_db_session_repository";
 
 export class CheckValidSessionUsecase {
   constructor(private readonly sessionRepo: IDbSessionRepository) {}

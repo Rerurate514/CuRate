@@ -1,16 +1,27 @@
-import { createRoute } from "honox/factory";
-import { diMiddleware } from "../../../middlewares/_di_middleware";
 import { zValidator } from "@hono/zod-validator";
-import { deleteFileSchema } from "../../../domain/schemas/delete_file.schema";
+import { createRoute } from "honox/factory";
+import type { Result } from "../../../core/utils/result";
+import { deleteContentsSchema } from "../../../domain/schemas/delete_contents.schema";
+import { diMiddleware } from "../../../middlewares/_di_middleware";
 
 export const DELETE = createRoute(
   diMiddleware,
-  zValidator("json", deleteFileSchema),
+  zValidator("json", deleteContentsSchema),
   async (c) => {
     const body = c.req.valid("json");
 
-    const usecase = c.get("deleteFileUsecase");
-    const result = await usecase.execute(body.targetPath);
+    const contentType = body.contentsType;
+    let result: Result<void, any>;
+
+    if (contentType === "file") {
+      const fileUsecase = c.get("deleteFileUsecase");
+      result = await fileUsecase.execute(body.targetPath);
+    } else if (contentType === "directory") {
+      const dirUsecase = c.get("deleteDirectoryUsecase");
+      result = await dirUsecase.execute(body.targetPath);
+    } else {
+      return c.json({ error: "Invalid content type" }, 400);
+    }
 
     if (!result.success) {
       return c.json({ error: result.error.message }, 400);

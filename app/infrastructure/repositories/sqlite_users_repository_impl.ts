@@ -1,8 +1,8 @@
 import { UserNotFoundError } from "../../core/exceptions/user_not_found_error";
-import { Failure, Result, Success } from "../../core/utils/result";
+import { Failure, type Result, Success } from "../../core/utils/result";
 import { UserEntity } from "../../domain/entities/user.entity";
-import { IDbUsersRepository } from "../../domain/repositories/i_db_users_repository";
-import { UserRoles } from "../../domain/vo/user_roles";
+import type { IDbUsersRepository } from "../../domain/repositories/i_db_users_repository";
+import type { UserRoles } from "../../domain/vo/user_roles";
 import { db } from "../db/db";
 
 export class SqliteUsersRepositoryImpl implements IDbUsersRepository {

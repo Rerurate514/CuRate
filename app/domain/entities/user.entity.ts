@@ -1,4 +1,4 @@
-import { UserRoles } from "../vo/user_roles";
+import type { UserRoles } from "../vo/user_roles";
 
 export class UserEntity {
   private constructor(

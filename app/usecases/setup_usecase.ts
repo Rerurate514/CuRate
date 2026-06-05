@@ -1,6 +1,6 @@
-import { Failure, Result, Success } from "../core/utils/result";
+import { Failure, type Result, Success } from "../core/utils/result";
 import { UserEntity } from "../domain/entities/user.entity";
-import { IDbUsersRepository } from "../domain/repositories/i_db_users_repository";
+import type { IDbUsersRepository } from "../domain/repositories/i_db_users_repository";
 
 export class SetupUsecase {
   constructor(private readonly userRepo: IDbUsersRepository) {}

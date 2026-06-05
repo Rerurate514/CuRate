@@ -1,8 +1,8 @@
-import { NoFilesProvidedError } from "../core/exceptions/no_files_provided_error";
-import { Failure, Result, Success } from "../core/utils/result";
-import { DRIVE_DIR } from "../domain/constants/file_names";
-import { IFileStorageRepository } from "../domain/repositories/i_file_storage_repository";
 import path from "node:path";
+import { NoFilesProvidedError } from "../core/exceptions/no_files_provided_error";
+import { Failure, type Result, Success } from "../core/utils/result";
+import { DRIVE_DIR } from "../domain/constants/file_names";
+import type { IFileStorageRepository } from "../domain/repositories/i_file_storage_repository";
 
 export class UploadFilesUsecase {
   constructor(private readonly fileRepo: IFileStorageRepository) {}

@@ -1,5 +1,5 @@
 import { SESSION_CLEANUP_INTERVAL } from "./domain/constants/session_cleanup_interval";
-import { IDbSessionRepository } from "./domain/repositories/i_db_session_repository";
+import type { IDbSessionRepository } from "./domain/repositories/i_db_session_repository";
 
 export function startSessionCleanup(sessionRepo: IDbSessionRepository) {
   const run = async () => {

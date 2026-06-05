@@ -1,4 +1,4 @@
-import { Result } from "../../core/utils/result";
+import type { Result } from "../../core/utils/result";
 
 export interface IFileStorageRepository {
   save(path: string, data: Buffer | string): Promise<Result<void>>;

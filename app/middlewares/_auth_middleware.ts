@@ -2,7 +2,7 @@ import { getCookie } from "hono/cookie";
 import { createMiddleware } from "hono/factory";
 import { BYPASS_PATHS } from "../domain/constants/bypass_paths";
 import { COOKIE_IDENTIFIER } from "../domain/constants/cookie_identifier";
-import { DiEnv } from "./_di_middleware";
+import type { DiEnv } from "./_di_middleware";
 
 export const authMiddleware = createMiddleware<DiEnv>(async (c, next) => {
   const sessionId = getCookie(c, COOKIE_IDENTIFIER);

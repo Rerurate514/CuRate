@@ -1,8 +1,8 @@
-import { IDbSessionRepository } from "../../domain/repositories/i_db_session_repository";
-import { SessionDataEntity } from "../../domain/entities/session_data.entity";
-import { db } from "../db/db";
-import { Failure, Result, Success } from "../../core/utils/result";
 import { SessionNotFoundError } from "../../core/exceptions/session_not_found_error";
+import { Failure, type Result, Success } from "../../core/utils/result";
+import { SessionDataEntity } from "../../domain/entities/session_data.entity";
+import type { IDbSessionRepository } from "../../domain/repositories/i_db_session_repository";
+import { db } from "../db/db";
 
 export class SqliteSessionRepositoryImpl implements IDbSessionRepository {
   async create(session: SessionDataEntity): Promise<Result<void>> {

@@ -1,8 +1,8 @@
-import { useState, useEffect } from "hono/jsx";
-import { FileExplorer } from "../presentation/drive/file_explorer";
+import { useEffect, useState } from "hono/jsx";
 import type { z } from "zod";
 import { DriveEntriesSchema } from "../domain/schemas/drive_entries.schema";
-import { MenuItem } from "../presentation/types/memu_item";
+import { FileExplorer } from "../presentation/drive/file_explorer";
+import type { MenuItem } from "../presentation/types/memu_item";
 
 type Entries = NonNullable<z.infer<typeof DriveEntriesSchema>["entries"]>;
 
@@ -54,7 +54,12 @@ export default function FileExplorerWrapper({
   //TODO: RPC化
   const handleDownload = () => {
     if (!menu) return;
-    window.location.href = `/api/drive/download?path=${encodeURIComponent(menu.item.path)}`;
+    if (menu.item.type === "file") {
+      window.location.href = `/api/drive/download-file?path=${encodeURIComponent(menu.item.path)}`;
+    } else if (menu.item.type === "directory") {
+      window.location.href = `/api/drive/download-dir?path=${encodeURIComponent(menu.item.path)}`;
+    }
+
     setMenu(null);
   };
 
@@ -63,7 +68,10 @@ export default function FileExplorerWrapper({
     await fetch(`/api/drive/delete`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ targetPath: menu.item.path }),
+      body: JSON.stringify({
+        targetPath: menu.item.path,
+        contentsType: menu.item.type,
+      }),
     });
     setMenu(null);
     window.dispatchEvent(new CustomEvent("reload-explorer"));

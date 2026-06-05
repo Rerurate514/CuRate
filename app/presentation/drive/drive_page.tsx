@@ -1,5 +1,5 @@
-import z from "zod";
-import { DriveEntriesSchema } from "../../domain/schemas/drive_entries.schema";
+import type z from "zod";
+import type { DriveEntriesSchema } from "../../domain/schemas/drive_entries.schema";
 import FileExplorerWrapper from "../../islands/fileExplorerWrapper";
 import DriveHeader from "./header";
 

@@ -1,7 +1,5 @@
-import { join } from "node:path";
-import { Failure, Result, Success } from "../core/utils/result";
-import { IFileStorageRepository } from "../domain/repositories/i_file_storage_repository";
-import { DRIVE_DIR } from "../domain/constants/file_names";
+import { Failure, type Result, Success } from "../core/utils/result";
+import type { IFileStorageRepository } from "../domain/repositories/i_file_storage_repository";
 
 export class DeleteFileUsecase {
   constructor(private readonly fileRepo: IFileStorageRepository) {}

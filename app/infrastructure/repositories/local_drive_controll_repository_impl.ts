@@ -1,13 +1,11 @@
-import { readdir } from "node:fs/promises";
+import { mkdir, readdir, stat } from "node:fs/promises";
 import { join } from "node:path";
-import { stat } from "node:fs/promises";
-import { Failure, Result, Success } from "../../core/utils/result";
-import { IDriveControllRepository } from "../../domain/repositories/i_drive_controll_repository";
+import { Failure, type Result, Success } from "../../core/utils/result";
+import { DRIVE_DIR } from "../../domain/constants/file_names";
 import { DirectoryDataEntity } from "../../domain/entities/directory_data.entity";
 import { FileDataEntity } from "../../domain/entities/file_data.entity";
-import { TargetEntries } from "./../../domain/vo/target_entries";
-import { mkdir } from "node:fs/promises";
-import { DRIVE_DIR } from "../../domain/constants/file_names";
+import type { IDriveControllRepository } from "../../domain/repositories/i_drive_controll_repository";
+import type { TargetEntries } from "./../../domain/vo/target_entries";
 
 export class LocalDriveControllRepositoryImpl
   implements IDriveControllRepository

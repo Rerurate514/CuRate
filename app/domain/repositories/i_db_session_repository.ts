@@ -1,5 +1,5 @@
-import { Result } from "../../core/utils/result";
-import { SessionDataEntity } from "../entities/session_data.entity";
+import type { Result } from "../../core/utils/result";
+import type { SessionDataEntity } from "../entities/session_data.entity";
 
 export interface IDbSessionRepository {
   create(session: SessionDataEntity): Promise<Result<void>>;
