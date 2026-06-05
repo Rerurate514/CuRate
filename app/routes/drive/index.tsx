@@ -55,7 +55,7 @@ export const POST = createRoute(
           title="Failed to Upload Files"
           message="Something went wrong while retrieving the file list. Please try again."
           buttonText="Back To Drive"
-          backTo={`/${BASE_DRIVE_NAME}`}
+          backTo={`/dashboard`}
         />,
       );
     }
@@ -68,7 +68,7 @@ export const POST = createRoute(
           title="Failed to Load Directory"
           message="Something went wrong while retrieving the file list. Please try again."
           buttonText="Retry"
-          backTo={`/${BASE_DRIVE_NAME}`}
+          backTo={`/dashboard`}
         />,
       );
     }
