@@ -14,8 +14,6 @@ export const POST = createRoute(
     const rawPath = path.join(CURATE_DIR, body.currentPath, body.folderName);
     const targetPath = rawPath.split(path.sep).join("/");
 
-      console.log(targetPath)
-
     const usecase = c.get("createDirectoryUsecase");
     const result = await usecase.execute(targetPath);
 
