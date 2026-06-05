@@ -29,15 +29,7 @@ export class EnvConfigRepositoryImpl implements IEnvConfigRepository {
         return new Success(process.env.DRIVE_PATH);
       }
 
-      const platform = os.platform();
-
-      if (platform === "win32") {
-        const tmpDir = os.tmpdir();
-        const root = path.parse(tmpDir).root;
-        return new Success(root || "C:\\");
-      }
-
-      return new Success("/");
+      return new Success(process.cwd());
     } catch (e: any) {
       return new Failure(e);
     }
